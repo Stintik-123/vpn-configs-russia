@@ -1,0 +1,38 @@
+name: Sync Sources
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install deps
+        run: pip install aiohttp
+
+      - name: Fetch
+        env:
+          SOURCES_LIST: ${{ secrets.SOURCES_LIST }}
+        run: python tools/fetch.py
+
+      - name: Clean
+        run: python tools/clean.py
+
+      - name: TCP Test
+        run: python tools/tcp_test.py
+
+      - name: Upload alive configs
+        uses: actions/upload-artifact@v4
+        with:
+          name: tcp-alive
+          path: tcp_alive.txt
+          retention-days: 1
