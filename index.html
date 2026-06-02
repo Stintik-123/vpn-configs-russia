@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPN Configs Russia</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 950: '#0a0a0a', 900: '#171717', 800: '#262626' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .card-enter { animation: fadeUp 0.4s ease-out forwards; opacity: 0; transform: translateY(20px); }
+        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        .pulse-dot { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    </style>
+</head>
+<body class="min-h-screen bg-dark-950 text-white transition-colors duration-300">
+
+    <!-- Навигация -->
+    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-dark-950/80 backdrop-blur-md">
+        <div class="mx-auto max-w-6xl px-4 py-4 flex justify-between items-center">
+            <div class="text-xl font-black tracking-tight">🇷🇺 VPN<span class="text-indigo-500">Configs</span></div>
+            <button onclick="toggleTheme()" class="rounded-lg bg-white/10 p-2 hover:bg-white/20 transition">🌓</button>
+        </div>
+    </nav>
+
+    <!-- Главная -->
+    <main class="mx-auto max-w-6xl px-4 pt-24 pb-16">
+        <header class="mb-12 text-center">
+            <h1 class="mb-4 text-5xl font-black tracking-tight">Подписки с валидацией</h1>
+            <p class="text-xl text-white/50">Автоматический сбор • TCP-тест • Краудсорсинг</p>
+            <button onclick="document.getElementById('subs').scrollIntoView({behavior:'smooth'})" 
+                    class="mt-8 rounded-xl bg-indigo-600 px-8 py-4 text-lg font-bold transition hover:bg-indigo-500 hover:shadow-lg hover:shadow-indigo-500/25">
+                ➕ Добавить подписку
+            </button>
+        </header>
+
+        <!-- Фильтры -->
+        <div id="filters" class="mb-8 flex flex-wrap gap-2 justify-center">
+            <button onclick="filterSubs('all')" class="filter-btn active rounded-full bg-indigo-600 px-4 py-2 text-sm font-medium transition">Все</button>            <button onclick="filterSubs('white')" class="filter-btn rounded-full bg-white/10 px-4 py-2 text-sm font-medium transition hover:bg-white/20">White List</button>
+            <button onclick="filterSubs('black')" class="filter-btn rounded-full bg-white/10 px-4 py-2 text-sm font-medium transition hover:bg-white/20">Black List</button>
+            <button onclick="filterSubs('vless')" class="filter-btn rounded-full bg-white/10 px-4 py-2 text-sm font-medium transition hover:bg-white/20">VLESS</button>
+            <button onclick="filterSubs('trojan')" class="filter-btn rounded-full bg-white/10 px-4 py-2 text-sm font-medium transition hover:bg-white/20">Trojan</button>
+        </div>
+
+        <!-- Карточки -->
+        <section id="subs" class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"></section>
+    </main>
+
+    <script>
+        // Данные подписок (потом заменишь на fetch из /data/*.txt)
+        const subscriptions = [
+            { id: 'white', name: 'WHITE LIST', type: 'white', protocol: 'vless', servers: 142, rating: 96, url: '/data/white.txt' },
+            { id: 'white_sni', name: 'WHITE SNI', type: 'white', protocol: 'vless', servers: 89, rating: 94, url: '/data/white_sni.txt' },
+            { id: 'black', name: 'BLACK LIST', type: 'black', protocol: 'mixed', servers: 536, rating: 82, url: '/data/black.txt' },
+            { id: 'vless', name: 'VLESS ONLY', type: 'black', protocol: 'vless', servers: 312, rating: 85, url: '/data/vless.txt' },
+            { id: 'trojan', name: 'TROJAN ONLY', type: 'black', protocol: 'trojan', servers: 178, rating: 88, url: '/data/trojan.txt' },
+        ];
+
+        let currentFilter = 'all';
+
+        function renderCards() {
+            const container = document.getElementById('subs');
+            container.innerHTML = '';
+            
+            const filtered = currentFilter === 'all' 
+                ? subscriptions 
+                : subscriptions.filter(s => s.type === currentFilter || s.protocol === currentFilter);
+
+            filtered.forEach((sub, i) => {
+                const card = document.createElement('div');
+                card.className = 'card-enter group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10';
+                card.style.animationDelay = `${i * 0.08}s`;
+                card.dataset.type = sub.type;
+                card.dataset.protocol = sub.protocol;
+
+                const isTop = sub.rating > 90;
+                
+                card.innerHTML = `
+                    ${isTop ? '<div class="absolute right-4 top-4 rounded-full bg-emerald-500/20 px-2 py-0.5 text-xs font-bold text-emerald-400">⭐ TOP</div>' : ''}
+                    <div class="mb-4 flex items-center gap-3">
+                        <div class="status-dot h-3 w-3 rounded-full bg-amber-500 pulse-dot"></div>
+                        <h3 class="text-lg font-bold">${sub.name}</h3>
+                        <span class="rounded bg-white/10 px-2 py-0.5 text-xs text-white/60 uppercase">${sub.protocol}</span>
+                    </div>
+                    <div class="mb-6 grid grid-cols-2 gap-4 text-sm text-white/70">
+                        <div>Серверов: <span class="text-white">${sub.servers}</span></div>
+                        <div>Рейтинг: <span class="text-white">${sub.rating}%</span></div>
+                        <div class="latency-display col-span-2 hidden">Пинг: <span class="text-emerald-400">—</span></div>                    </div>
+                    <div class="flex gap-2">
+                        <button onclick="copyLink('${sub.url}')" class="flex-1 rounded-lg bg-white/10 py-2 text-sm font-medium transition hover:bg-white/20">📋 Копировать</button>
+                        <button onclick="checkStatus(this, '${sub.url}')" class="check-btn flex-1 rounded-lg bg-indigo-600 py-2 text-sm font-medium transition hover:bg-indigo-500 disabled:opacity-50">🔄 Проверить</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterSubs(type) {
+            currentFilter = type;
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                b.classList.remove('bg-indigo-600', 'active');
+                b.classList.add('bg-white/10');
+            });
+            event.target.classList.remove('bg-white/10');
+            event.target.classList.add('bg-indigo-600', 'active');
+            renderCards();
+        }
+
+        async function checkStatus(btn, url) {
+            btn.disabled = true;
+            btn.textContent = '⏳';
+            const dot = btn.closest('.group').querySelector('.status-dot');
+            const latencyDisplay = btn.closest('.group').querySelector('.latency-display');
+            
+            dot.className = 'status-dot h-3 w-3 rounded-full bg-amber-500 pulse-dot';
+            
+            const start = performance.now();
+            try {
+                await fetch(url, { method: 'HEAD', mode: 'no-cors', signal: AbortSignal.timeout(5000) });
+                const latency = Math.round(performance.now() - start);
+                dot.className = 'status-dot h-3 w-3 rounded-full bg-emerald-500';
+                latencyDisplay.classList.remove('hidden');
+                latencyDisplay.querySelector('span').textContent = `${latency}ms`;
+                btn.textContent = '✅ OK';
+            } catch {
+                dot.className = 'status-dot h-3 w-3 rounded-full bg-red-500';
+                btn.textContent = '❌ Ошибка';
+            }
+            setTimeout(() => { btn.disabled = false; btn.textContent = '🔄 Проверить'; }, 3000);
+        }
+
+        function copyLink(path) {
+            navigator.clipboard.writeText(window.location.origin + path);
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-4 left-1/2 -translate-x-1/2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-bold shadow-lg transition-opacity duration-500';
+            toast.textContent = '✓ Ссылка скопирована';
+            document.body.appendChild(toast);            setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 500); }, 2000);
+        }
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+        }
+
+        // Инициализация
+        renderCards();
+    </script>
+</body>
+      </html>
