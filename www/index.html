@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VPN-Configs-Russia — инфраструктура мониторинга и анализа VPN-конфигураций">
+  <title>VPN-Configs-Russia — Infrastructure Platform</title>
+  <link rel="stylesheet" href="/www/css/main.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="/www/index.html" class="navbar-logo">
+          <span class="logo-icon">🛡️</span>
+          <span>VPN-Configs</span>
+        </a>
+        
+        <ul class="navbar-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="/www/pages/configs.html">Configs</a></li>
+          <li><a href="/www/pages/roadmap.html">Roadmap</a></li>
+          <li><a href="/www/pages/docs.html">Docs</a></li>
+          <li><a href="/www/pages/about.html">About</a></li>
+        </ul>
+        
+        <div class="navbar-buttons">
+          <a href="https://github.com/Stintik-123/vpn-configs-russia" class="btn btn-ghost">GitHub</a>
+          <a href="/www/pages/configs.html" class="btn btn-primary">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    
+    <svg class="hero-globe" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(124, 58, 237, 0.2)" stroke-width="0.5"/>
+      <circle cx="50" cy="50" r="35" fill="none" stroke="rgba(124, 58, 237, 0.15)" stroke-width="0.5"/>
+      <circle cx="50" cy="50" r="25" fill="none" stroke="rgba(124, 58, 237, 0.1)" stroke-width="0.5"/>
+      
+      <circle cx="50" cy="20" r="2" fill="#7c3aed" opacity="0.8"/>
+      <circle cx="70" cy="40" r="2" fill="#3b82f6" opacity="0.8"/>
+      <circle cx="60" cy="70" r="2" fill="#7c3aed" opacity="0.8"/>
+      <circle cx="30" cy="60" r="2" fill="#3b82f6" opacity="0.8"/>
+      <circle cx="40" cy="35" r="2" fill="#7c3aed" opacity="0.8"/>
+      
+      <line x1="50" y1="20" x2="70" y2="40" stroke="rgba(124, 58, 237, 0.4)" stroke-width="0.3" opacity="0.5"/>
+      <line x1="70" y1="40" x2="60" y2="70" stroke="rgba(59, 130, 246, 0.4)" stroke-width="0.3" opacity="0.5"/>
+      <line x1="60" y1="70" x2="30" y2="60" stroke="rgba(124, 58, 237, 0.4)" stroke-width="0.3" opacity="0.5"/>
+      <line x1="30" y1="60" x2="40" y2="35" stroke="rgba(59, 130, 246, 0.4)" stroke-width="0.3" opacity="0.5"/>
+      <line x1="40" y1="35" x2="50" y2="20" stroke="rgba(124, 58, 237, 0.4)" stroke-width="0.3" opacity="0.5"/>
+    </svg>
+    
+    <div class="container hero-content">
+      <div class="hero-text">
+        <h1>Infrastructure for VPN Configuration</h1>
+        <p class="hero-subtitle">Automatic collection, filtering, testing and publication of quality VPN configs. Forget about searching through thousands of dead servers.</p>
+        
+        <div class="hero-buttons">
+          <a href="/www/pages/configs.html" class="btn btn-primary">📥 Get Configs</a>
+          <a href="/www/pages/docs.html" class="btn btn-secondary">📖 Documentation</a>
+        </div>
+        
+        <div class="hero-stats">
+          <div class="stat" style="animation-delay: 0s">
+            <div class="stat-value">1000+</div>
+            <div class="stat-label">Active Configs</div>
+          </div>
+          <div class="stat" style="animation-delay: 0.1s">
+            <div class="stat-value">99.2%</div>
+            <div class="stat-label">Uptime</div>
+          </div>
+          <div class="stat" style="animation-delay: 0.2s">
+            <div class="stat-value">50+</div>
+            <div class="stat-label">Regions</div>
+          </div>
+          <div class="stat" style="animation-delay: 0.3s">
+            <div class="stat-value">2h</div>
+            <div class="stat-label">Update Cycle</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="section features-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">⚙️ Core Features</div>
+        <h2>What We Do</h2>
+        <p>Automated infrastructure for managing VPN configurations with real-time quality assurance.</p>
+      </div>
+      
+      <div class="features-grid">
+        <div class="card feature-card">
+          <div class="card-icon">🔄</div>
+          <h3>Automatic Collection</h3>
+          <p>Collects from verified sources in real-time. Supports base64, plain-text, and JSON formats.</p>
+        </div>
+        
+        <div class="card feature-card" style="animation-delay: 0.1s">
+          <div class="card-icon">✅</div>
+          <h3>Smart Filtering</h3>
+          <p>Removes duplicates, test configs, and junk servers. Intelligent deduplication.</p>
+        </div>
+        
+        <div class="card feature-card" style="animation-delay: 0.2s">
+          <div class="card-icon">🧪</div>
+          <h3>Continuous Testing</h3>
+          <p>TCP ping, DNS resolution, HTTPS handshake. Only verified configs published.</p>
+        </div>
+        
+        <div class="card feature-card" style="animation-delay: 0.3s">
+          <div class="card-icon">📊</div>
+          <h3>Real-time Stats</h3>
+          <p>Live metrics: server count, uptime, speed, regional distribution.</p>
+        </div>
+        
+        <div class="card feature-card" style="animation-delay: 0.4s">
+          <div class="card-icon">🤖</div>
+          <h3>CI/CD Automation</h3>
+          <p>GitHub Actions: update every 2 hours. Automatic deployment and monitoring.</p>
+        </div>
+        
+        <div class="card feature-card" style="animation-delay: 0.5s">
+          <div class="card-icon">🔐</div>
+          <h3>Open Source</h3>
+          <p>Full transparency: source code on GitHub, no hidden functionality, MIT licensed.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="section how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">🔍 How It Works</div>
+        <h2>The Verification Process</h2>
+        <p>Multi-stage pipeline ensuring only high-quality configurations are published.</p>
+      </div>
+      
+      <div class="process-grid">
+        <div class="process-step">
+          <div class="process-icon">📥</div>
+          <div class="process-title">Collection</div>
+          <div class="process-desc">Gather from sources</div>
+        </div>
+        <div class="process-arrow">→</div>
+        <div class="process-step">
+          <div class="process-icon">🧹</div>
+          <div class="process-title">Cleaning</div>
+          <div class="process-desc">Remove duplicates</div>
+        </div>
+        <div class="process-arrow">→</div>
+        <div class="process-step">
+          <div class="process-icon">✅</div>
+          <div class="process-title">Testing</div>
+          <div class="process-desc">Verify connectivity</div>
+        </div>
+        <div class="process-arrow">→</div>
+        <div class="process-step">
+          <div class="process-icon">🚀</div>
+          <div class="process-title">Publishing</div>
+          <div class="process-desc">Deploy to CDN</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clients Section -->
+  <section class="section clients-section">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label">📱 Supported Clients</div>
+        <h2>Works Everywhere</h2>
+        <p>Compatible with popular VPN clients across all platforms.</p>
+      </div>
+      
+      <div class="clients-grid">
+        <div class="client-card"><div class="client-icon">📱</div><div class="client-name">Hiddify</div><div class="client-platform">Windows, macOS, Linux, Android</div></div>
+        <div class="client-card"><div class="client-icon">⚙️</div><div class="client-name">v2rayN</div><div class="client-platform">Windows, Android</div></div>
+        <div class="client-card"><div class="client-icon">🎮</div><div class="client-name">NekoBox</div><div class="client-platform">Android, iOS</div></div>
+        <div class="client-card"><div class="client-icon">🔷</div><div class="client-name">Clash Meta</div><div class="client-platform">Windows, macOS, Linux</div></div>
+        <div class="client-card"><div class="client-icon">🎨</div><div class="client-name">FlClashX</div><div class="client-platform">macOS</div></div>
+        <div class="client-card"><div class="client-icon">📡</div><div class="client-name">Streisand</div><div class="client-platform">iOS, macOS</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Get Started?</h2>
+        <p>Choose a subscription type and start using quality VPN configs immediately.</p>
+        
+        <div class="cta-buttons">
+          <a href="/www/pages/configs.html" class="btn btn-primary">📥 Get Configs</a>
+          <a href="https://github.com/Stintik-123/vpn-configs-russia" class="btn btn-secondary">View on GitHub</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h4>Project</h4>
+          <ul>
+            <li><a href="https://github.com/Stintik-123/vpn-configs-russia">GitHub Repository</a></li>
+            <li><a href="https://github.com/Stintik-123/vpn-configs-russia/issues">Issues & Bugs</a></li>
+            <li><a href="https://github.com/Stintik-123/vpn-configs-russia/discussions">Discussions</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Documentation</h4>
+          <ul>
+            <li><a href="/www/pages/docs.html">Getting Started</a></li>
+            <li><a href="/www/pages/docs.html">API Reference</a></li>
+            <li><a href="/www/pages/about.html">Architecture</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Supported Clients</a></li>
+            <li><a href="/www/pages/roadmap.html">Roadmap</a></li>
+            <li><a href="#">Status Page</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="https://t.me/Stintik123">Telegram</a></li>
+            <li><a href="mailto:hello@example.com">Email</a></li>
+            <li><a href="https://github.com/Stintik-123">GitHub Profile</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© 2026 VPN-Configs-Russia. Made with ❤️ for internet freedom. MIT Licensed.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/www/js/main.js"></script>
+</body>
+</html>

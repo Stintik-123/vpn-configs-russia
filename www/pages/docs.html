@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation — VPN-Configs-Russia</title>
+  <link rel="stylesheet" href="/www/css/main.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="/www/index.html" class="navbar-logo">
+          <span class="logo-icon">🛡️</span>
+          <span>VPN-Configs</span>
+        </a>
+        
+        <ul class="navbar-links">
+          <li><a href="/www/index.html#features">Features</a></li>
+          <li><a href="/www/pages/configs.html">Configs</a></li>
+          <li><a href="/www/pages/roadmap.html">Roadmap</a></li>
+          <li><a href="/www/pages/docs.html" class="active">Docs</a></li>
+          <li><a href="/www/pages/about.html">About</a></li>
+        </ul>
+        
+        <div class="navbar-buttons">
+          <a href="https://github.com/Stintik-123/vpn-configs-russia" class="btn btn-ghost">GitHub</a>
+          <a href="/www/pages/configs.html" class="btn btn-primary">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-simple">
+    <div class="container">
+      <div class="hero-simple-content">
+        <h1>Documentation</h1>
+        <p>Complete guide to using VPN-Configs-Russia</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Content -->
+  <section class="section">
+    <div class="container">
+      <div class="docs-container">
+        <aside class="docs-sidebar">
+          <h4 style="margin-bottom: 1.5rem;">Table of Contents</h4>
+          <ul class="toc-list">
+            <li><a href="#getting-started">Getting Started</a></li>
+            <li><a href="#supported-clients">Supported Clients</a></li>
+            <li><a href="#config-types">Configuration Types</a></li>
+            <li><a href="#api-reference">API Reference</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </aside>
+        
+        <main class="docs-content">
+          <section id="getting-started" class="doc-section">
+            <h2>Getting Started</h2>
+            <p>VPN-Configs-Russia is an infrastructure for collecting, filtering, and publishing quality VPN configurations.</p>
+            <h3>Quick Start</h3>
+            <ol>
+              <li>Visit the <a href="/www/pages/configs.html">Configs page</a></li>
+              <li>Choose your config type (Black List, Mobile, White List SNI, or White List CIDR)</li>
+              <li>Copy the subscription link or scan the QR code</li>
+              <li>Open your VPN client and import the config</li>
+              <li>Select a server and connect</li>
+            </ol>
+          </section>
+          
+          <section id="supported-clients" class="doc-section">
+            <h2>Supported VPN Clients</h2>
+            <p>Our configs work with popular VPN clients across all platforms:</p>
+            <div class="clients-list">
+              <div class="client-doc-item">
+                <h4>📱 Hiddify</h4>
+                <p><strong>Best for:</strong> All platforms (Windows, macOS, Linux, Android)</p>
+                <p><strong>URL:</strong> <a href="https://github.com/hiddify/hiddify-next">github.com/hiddify/hiddify-next</a></p>
+              </div>
+              <div class="client-doc-item">
+                <h4>⚙️ v2rayN</h4>
+                <p><strong>Best for:</strong> Windows, Android</p>
+                <p><strong>URL:</strong> <a href="https://github.com/2dust/v2rayN">github.com/2dust/v2rayN</a></p>
+              </div>
+              <div class="client-doc-item">
+                <h4>🔷 Clash Meta</h4>
+                <p><strong>Best for:</strong> Windows, macOS, Linux</p>
+                <p><strong>URL:</strong> <a href="https://github.com/MetaCubeX/ClashMetaForAndroid">MetaCubeX</a></p>
+              </div>
+            </div>
+          </section>
+          
+          <section id="config-types" class="doc-section">
+            <h2>Configuration Types</h2>
+            <p>Choose the right config for your network conditions:</p>
+            
+            <h3>🏴 Black List (Standard)</h3>
+            <p>Use for regular internet without heavy blocking. Contains ~1000 configs, updated every 2 hours.</p>
+            
+            <h3>📱 Mobile Optimized</h3>
+            <p>Lightweight configs for mobile devices. ~200 configs with low bandwidth requirements.</p>
+            
+            <h3>🏳️ White List SNI</h3>
+            <p>For SNI-based blocking (mobileoperators using white lists). ~500 configs.</p>
+            
+            <h3>🛡️ White List CIDR</h3>
+            <p>For CIDR-based blocking. Alternative when SNI filtering is active. ~300 configs.</p>
+          </section>
+          
+          <section id="api-reference" class="doc-section">
+            <h2>API Reference</h2>
+            <p>Coming in Q3 2026. Public REST API for third-party integrations.</p>
+            <div class="api-preview">
+              <pre><code>GET /api/v1/configs
+GET /api/v1/configs/stats
+GET /api/v1/regions
+GET /api/v1/protocols</code></pre>
+            </div>
+          </section>
+          
+          <section id="architecture" class="doc-section">
+            <h2>Architecture</h2>
+            <p>VPN-Configs-Russia uses a fully automated pipeline:</p>
+            <div style="background: var(--color-bg-secondary); padding: 2rem; border-radius: 8px; margin: 1.5rem 0;">
+              <p style="text-align: center; font-family: var(--font-mono); font-size: 12px; line-height: 2;">
+                Sources → Collection → Normalization → Testing → Filtering → Publishing → CDN
+              </p>
+            </div>
+          </section>
+          
+          <section id="faq" class="doc-section">
+            <h2>FAQ</h2>
+            
+            <h4>Q: Is it safe to use these configs?</h4>
+            <p>A: Configs are collected from public sources. Use at your own risk. Not recommended for banking apps or sensitive accounts.</p>
+            
+            <h4>Q: How often are configs updated?</h4>
+            <p>A: Every 2 hours automatically through GitHub Actions.</p>
+            
+            <h4>Q: Can I contribute configs?</h4>
+            <p>A: Yes! Open a GitHub issue or discussion to add new sources.</p>
+            
+            <h4>Q: Which config should I use?</h4>
+            <p>A: Start with Black List. If it doesn't work, try White List SNI. If that fails, use White List CIDR.</p>
+            
+            <h4>Q: Is the project open source?</h4>
+            <p>A: Yes! Full MIT licensed source code on <a href="https://github.com/Stintik-123/vpn-configs-russia">GitHub</a>.</p>
+          </section>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-column">
+          <h4>Project</h4>
+          <ul>
+            <li><a href="https://github.com/Stintik-123/vpn-configs-russia">GitHub Repository</a></li>
+            <li><a href="https://github.com/Stintik-123/vpn-configs-russia/issues">Issues</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-column">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/www/pages/roadmap.html">Roadmap</a></li>
+            <li><a href="/www/pages/about.html">About</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© 2026 VPN-Configs-Russia. Made with ❤️ for internet freedom.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/www/js/main.js"></script>
+</body>
+</html>
