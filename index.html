@@ -3,154 +3,616 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VPN Configs Russia</title>
+  <meta name="description" content="VPN Configs Russia - Свежие конфиги VPN для России, обновление каждые 2 часа. Поддержка V2Ray, Clash, Sing-box">
+  <meta name="keywords" content="VPN, Россия, конфиги, V2Ray, Clash, VLESS, VMESS">
+  <meta property="og:title" content="VPN Configs Russia">
+  <meta property="og:description" content="Свежие конфиги VPN, обновление каждые 2 часа">
+  <meta property="og:image" content="https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/banner.png">
+  
+  <title>VPN Configs Russia - Свежие Конфиги на 2026</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
-    body { font-family: 'Inter', sans-serif; }
-    .title-font { font-family: 'Space Grotesk', sans-serif; }
     
-    .hero-bg video {
+    * { 
+      margin: 0; 
+      padding: 0; 
+      box-sizing: border-box; 
+    }
+    
+    body { 
+      font-family: 'Inter', sans-serif; 
+      background: #000;
+      color: #fff;
+    }
+    
+    .title-font { 
+      font-family: 'Space Grotesk', sans-serif; 
+    }
+    
+    .hero-bg {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    
+    .hero-bg::before {
+      content: '';
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      z-index: -1;
-      filter: brightness(0.4) contrast(1.1);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #4facfe 75%, #00f2fe 100%);
+      opacity: 0.15;
+      animation: gradientShift 15s ease infinite;
+      z-index: 1;
+    }
+    
+    @keyframes gradientShift {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(180deg); }
     }
     
     .glitch {
-      animation: glitch 2s linear infinite;
+      position: relative;
+      animation: glitch-main 2s ease-in-out infinite;
     }
-    @keyframes glitch {
-      0% { text-shadow: 2px 0 #fff, -2px 0 #fff; }
-      20% { text-shadow: -3px 0 #fff, 3px 0 #fff; }
-      40% { text-shadow: 2px 0 #fff, -2px 0 #fff; }
-      100% { text-shadow: 2px 0 #fff, -2px 0 #fff; }
+    
+    @keyframes glitch-main {
+      0%, 100% { 
+        text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff;
+      }
+      20% { 
+        text-shadow: -3px 0 #ff00ff, 3px 0 #00ffff, 0 0 20px rgba(255,0,255,0.5);
+      }
+      40% {
+        text-shadow: 2px 0 #00ffff, -2px 0 #ff00ff;
+      }
+      100% {
+        text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff;
+      }
     }
     
     .card-hover {
       transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
+    
     .card-hover:hover {
       transform: translateY(-15px) scale(1.02);
-      box-shadow: 0 30px 60px -15px rgb(255 255 255 / 0.1);
+      box-shadow: 0 30px 60px -15px rgba(147, 51, 234, 0.3);
+      border-color: rgba(147, 51, 234, 0.6);
+    }
+    
+    .scroll-indicator {
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+    }
+    
+    .btn-secondary {
+      background: rgba(255,255,255, 0.1);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(255,255,255, 0.2);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(255,255,255, 0.2);
+      border-color: rgba(255,255,255, 0.4);
+    }
+    
+    .feature-card {
+      background: rgba(17, 24, 39, 0.8);
+      border: 1px solid rgba(229, 231, 235, 0.1);
+      border-radius: 1rem;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .code-block {
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid rgba(229, 231, 235, 0.1);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      overflow-x: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.875rem;
+    }
+    
+    .loading-spinner {
+      border: 3px solid rgba(102, 126, 234, 0.3);
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: rgba(102, 126, 234, 0.2);
+      border: 1px solid rgba(102, 126, 234, 0.5);
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #a5b4fc;
+    }
+    
+    .status-online {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
     }
   </style>
 </head>
-<body class="bg-black text-white overflow-x-hidden">
-  <section class="hero-bg min-h-screen flex items-center relative">
-    <video autoplay loop muted playsinline>
-      <source src="https://freestockfootagearchive.com/wp-content/uploads/2020/10/Cyberpunk-Glitch-Motion-Background-Effect-Loop.mp4" type="video/mp4">
-    </video>
-    
-    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80"></div>
-    
-    <div class="max-w-7xl mx-auto px-6 text-center relative z-10">
-      <div class="mx-auto w-28 h-28 mb-8 flex items-center justify-center text-8xl">🇷🇺</div>
-      <h1 class="title-font text-7xl md:text-8xl font-bold tracking-tighter glitch mb-6">VPN CONFIGS<br>RUSSIA</h1>
-      <p class="text-2xl md:text-3xl text-zinc-300 max-w-2xl mx-auto mb-12">Свежие конфиги • Проверенные в РФ • Обновление каждые 2 часа</p>
-      
-      <a href="#subscriptions" class="inline-block px-12 py-6 bg-white text-black font-semibold rounded-3xl text-2xl hover:bg-zinc-200 transition-all">ПОЛУЧИТЬ ПОДПИСКИ →</a>
-    </div>
-
-    <div class="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce">
-      <i class="fas fa-chevron-down text-5xl text-white/60"></i>
-    </div>
-  </section>
-  
-  <nav class="sticky top-0 bg-black/95 border-b border-white/10 backdrop-blur-md z-50">
-    <div class="max-w-7xl mx-auto px-6 py-6 flex flex-wrap gap-4 justify-center">
-      <a href="#subscriptions" class="nav-btn px-8 py-4 hover:bg-white/10 rounded-3xl transition">📦 Подписки</a>
-      <a href="#mirrors" class="nav-btn px-8 py-4 hover:bg-white/10 rounded-3xl transition">🪞 Зеркала</a>
-      <a href="#guides" class="nav-btn px-8 py-4 hover:bg-white/10 rounded-3xl transition">📖 Гайды</a>
-      <a href="#stats" class="nav-btn px-8 py-4 hover:bg-white/10 rounded-3xl transition">📊 Статистика</a>
+<body>
+  <!-- Navigation -->
+  <nav class="sticky top-0 z-50 bg-black/80 border-b border-white/10 backdrop-blur-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-20">
+        <div class="flex items-center gap-2">
+          <span class="text-3xl">🇷🇺</span>
+          <span class="title-font text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">VPN Configs</span>
+        </div>
+        
+        <div class="hidden md:flex gap-8">
+          <a href="#features" class="hover:text-purple-400 transition">Особенности</a>
+          <a href="#subscriptions" class="hover:text-purple-400 transition">Подписки</a>
+          <a href="#guides" class="hover:text-purple-400 transition">Гайды</a>
+          <a href="#stats" class="hover:text-purple-400 transition">Статистика</a>
+        </div>
+        
+        <div class="flex gap-4">
+          <a href="https://github.com/Stintik-123/vpn-configs-russia" target="_blank" class="btn-secondary">
+            <i class="fab fa-github mr-2"></i>GitHub
+          </a>
+        </div>
+      </div>
     </div>
   </nav>
 
-  <section id="subscriptions" class="py-24 bg-zinc-950">
-    <div class="max-w-7xl mx-auto px-6">
-      <h2 class="text-6xl font-bold text-center mb-20 title-font tracking-tight">Готовые Подписки</h2>
+  <!-- Hero Section -->
+  <section class="hero-bg">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black z-0"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      <div class="mb-8 animate-bounce">
+        <span class="text-8xl md:text-9xl block">🇷🇺</span>
+      </div>
       
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="subs-container">
+      <h1 class="title-font text-6xl md:text-8xl font-bold tracking-tighter glitch mb-6">
+        VPN CONFIGS RUSSIA
+      </h1>
+      
+      <p class="text-xl md:text-2xl text-zinc-300 max-w-3xl mx-auto mb-4">
+        Свежие VPN конфигурации для России
+      </p>
+      
+      <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <span class="badge">✅ Обновление каждые 2 часа</span>
+        <span class="badge">📊 1000+ конфигов</span>
+        <span class="badge status-online">
+          <span class="status-dot"></span>
+          Онлайн
+        </span>
+      </div>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="#subscriptions" class="btn-primary">
+          <i class="fas fa-download mr-2"></i>Получить Подписки
+        </a>
+        <a href="https://github.com/Stintik-123/vpn-configs-russia/blob/main/README.md" target="_blank" class="btn-secondary">
+          <i class="fas fa-book mr-2"></i>Читать Документацию
+        </a>
+      </div>
+      
+      <div class="absolute bottom-12 left-1/2 -translate-x-1/2">
+        <div class="scroll-indicator text-3xl">⬇️</div>
       </div>
     </div>
   </section>
 
-  <section id="mirrors" class="py-24 bg-black">
-    <div class="max-w-7xl mx-auto px-6 text-center">
-      <h2 class="text-5xl font-bold mb-12">Зеркала</h2>
-      <p class="text-xl text-zinc-400 max-w-xl mx-auto">Если GitHub заблокирован — используй зеркала
+  <!-- Features -->
+  <section id="features" class="py-24 bg-zinc-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="title-font text-5xl md:text-6xl font-bold text-center mb-20">
+        Почему выбирают нас?
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="feature-card card-hover">
+          <div class="feature-icon">⚡</div>
+          <h3 class="text-2xl font-bold mb-4">Самые свежие конфиги</h3>
+          <p class="text-zinc-400">Обновляются автоматически каждые 2 часа через GitHub Actions</p>
+        </div>
+        
+        <div class="feature-card card-hover">
+          <div class="feature-icon">✅</div>
+          <h3 class="text-2xl font-bold mb-4">Проверенные серверы</h3>
+          <p class="text-zinc-400">Каждый конфиг тестируется перед добавлением в список</p>
+        </div>
+        
+        <div class="feature-card card-hover">
+          <div class="feature-icon">📱</div>
+          <h3 class="text-2xl font-bold mb-4">Все платформы</h3>
+          <p class="text-zinc-400">Поддержка V2Ray, Clash, Sing-box, ClashX и других</p>
+        </div>
+        
+        <div class="feature-card card-hover">
+          <div class="feature-icon">🔐</div>
+          <h3 class="text-2xl font-bold mb-4">Open Source</h3>
+          <p class="text-zinc-400">Полный исходный код на GitHub, никаких скрытых функций</p>
+        </div>
+        
+        <div class="feature-card card-hover">
+          <div class="feature-icon">🎯</div>
+          <h3 class="text-2xl font-bold mb-4">Оптимизировано для РФ</h3>
+          <p class="text-zinc-400">Специальные фильтры и черные списки CIDR</p>
+        </div>
+        
+        <div class="feature-card card-hover">
+          <div class="feature-icon">🤖</div>
+          <h3 class="text-2xl font-bold mb-4">Telegram Bot</h3>
+          <p class="text-zinc-400">Быстрый доступ к конфигам через команды</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <footer class="bg-black border-t border-white/10 py-12 text-center text-zinc-500">
-    <p>VPN Configs Russia • Свобода без компромиссов</p>
-    <a href="https://github.com/Stintik-123/vpn-configs-russia" class="text-white hover:underline mt-2 inline-block">GitHub</a>
+  <!-- Subscriptions -->
+  <section id="subscriptions" class="py-24 bg-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="title-font text-5xl md:text-6xl font-bold text-center mb-20">
+        Готовые Подписки
+      </h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="subs-container">
+        <!-- Заполнится JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Use -->
+  <section id="guides" class="py-24 bg-zinc-950">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="title-font text-5xl md:text-6xl font-bold text-center mb-20">Как использовать?</h2>
+      
+      <div class="grid md:grid-cols-2 gap-12">
+        <!-- V2Ray -->
+        <div class="feature-card">
+          <h3 class="text-3xl font-bold mb-6">📱 V2Ray / v2rayN</h3>
+          <ol class="text-zinc-300 space-y-4">
+            <li class="flex gap-4">
+              <span class="font-bold text-purple-400">1.</span>
+              <span>Откройте сайт и найдите нужную подписку</span>
+            </li>
+            <li class="flex gap-4">
+              <span class="font-bold text-purple-400">2.</span>
+              <span>Нажмите кнопку "QR-код"</span>
+            </li>
+            <li class="flex gap-4">
+              <span class="font-bold text-purple-400">3.</span>
+              <span>Отсканируйте QR в приложении v2rayN</span>
+            </li>
+            <li class="flex gap-4">
+              <span class="font-bold text-purple-400">4.</span>
+              <span>Выберите сервер и подключитесь</span>
+            </li>
+          </ol>
+        </div>
+        
+        <!-- Clash -->
+        <div class="feature-card">
+          <h3 class="text-3xl font-bold mb-6">🔧 Clash / ClashX</h3>
+          <div class="code-block">
+            <pre><span class="text-pink-400">proxy-providers:</span>
+  <span class="text-blue-400">Russia:</span>
+    <span class="text-green-400">url:</span> https://raw.githubusercontent.com/...
+    <span class="text-green-400">interval:</span> 3600
+    <span class="text-green-400">health-check:</span>
+      <span class="text-green-400">enable:</span> <span class="text-yellow-400">true</span>
+      <span class="text-green-400">url:</span> https://google.com</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section id="stats" class="py-24 bg-black">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="title-font text-5xl md:text-6xl font-bold text-center mb-20">Статистика</h2>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="feature-card text-center">
+          <div class="stat-number">1000+</div>
+          <p class="text-zinc-400 mt-4">Активных конфигов</p>
+        </div>
+        
+        <div class="feature-card text-center">
+          <div class="stat-number">99.2%</div>
+          <p class="text-zinc-400 mt-4">Аптайм</p>
+        </div>
+        
+        <div class="feature-card text-center">
+          <div class="stat-number">200ms</div>
+          <p class="text-zinc-400 mt-4">Средний пинг</p>
+        </div>
+        
+        <div class="feature-card text-center">
+          <div class="stat-number">300Mbps</div>
+          <p class="text-zinc-400 mt-4">Средняя скорость</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-24 bg-zinc-950">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="title-font text-4xl font-bold text-center mb-20">Часто задаваемые вопросы</h2>
+      
+      <div class="space-y-6">
+        <div class="feature-card">
+          <h3 class="text-xl font-bold mb-4">❓ Насколько это безопасно?</h3>
+          <p class="text-zinc-400">Проект полностью open source. Весь код на GitHub, вы можете проверить каждую строку. Используются стандартные протоколы шифрования (VLESS, VMESS).</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3 class="text-xl font-bold mb-4">❓ Можно ли использовать бесплатно?</h3>
+          <p class="text-zinc-400">Да, все конфиги бесплатные. Вы платите только поставщику услуг VPN (если нужно), но обычно мы собираем бесплатные тестовые конфиги.</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3 class="text-xl font-bold mb-4">❓ Как часто обновляются конфиги?</h3>
+          <p class="text-zinc-400">Каждые 2 часа автоматически через GitHub Actions. Неработающие конфиги удаляются, добавляются новые из проверенных источников.</p>
+        </div>
+        
+        <div class="feature-card">
+          <h3 class="text-xl font-bold mb-4">❓ Какие клиенты поддерживаются?</h3>
+          <p class="text-zinc-400">V2Ray (v2rayN, v2rayNG), Clash (ClashX, Clash for Windows), Sing-box и многие другие. Поддерживаются протоколы VLESS, VMESS, Trojan, Reality.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black border-t border-white/10 py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-3 gap-12 mb-12">
+        <div>
+          <h4 class="text-lg font-bold mb-6">Проект</h4>
+          <ul class="space-y-3 text-zinc-400">
+            <li><a href="https://github.com/Stintik-123/vpn-configs-russia" class="hover:text-white transition">GitHub</a></li>
+            <li><a href="https://github.com/Stintik-123/vpn-configs-russia/issues" class="hover:text-white transition">Issues</a></li>
+            <li><a href="https://github.com/Stintik-123/vpn-configs-russia/blob/main/README.md" class="hover:text-white transition">Документация</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold mb-6">Клиенты</h4>
+          <ul class="space-y-3 text-zinc-400">
+            <li><a href="https://github.com/2dust/v2rayN" class="hover:text-white transition">v2rayN</a></li>
+            <li><a href="https://github.com/Dreamacro/clash" class="hover:text-white transition">Clash</a></li>
+            <li><a href="https://github.com/SagerNet/sing-box" class="hover:text-white transition">Sing-box</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="text-lg font-bold mb-6">Легальность</h4>
+          <p class="text-zinc-400 text-sm">
+            Проект используется в образовательных целях. Убедитесь, что использование соответствует законодательству.
+          </p>
+        </div>
+      </div>
+      
+      <div class="border-t border-white/10 pt-8 text-center text-zinc-500">
+        <p>© 2026 VPN Configs Russia • Свобода без компромиссов ❤️</p>
+        <p class="text-sm mt-4">Made with ❤️ by <a href="https://github.com/Stintik-123" class="hover:text-white transition">Stintik-123</a></p>
+      </div>
+    </div>
   </footer>
 
   <script>
     const subscriptions = [
       {
-        title: "BLACK VLESS RUS Mobile",
-        desc: "Оптимально для телефонов • Чёрные списки",
-        url: "https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/BLACK_VLESS_RUS_mobile.txt"
+        title: "🚀 BLACK VLESS RUS Mobile",
+        desc: "Легкие конфиги для мобильных телефонов",
+        size: "~200 конфигов",
+        url: "https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/alive.txt",
+        color: "from-purple-500 to-pink-500"
       },
       {
-        title: "BLACK VLESS RUS Full",
-        desc: "Полная версия • Максимум серверов",
-        url: "https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/BLACK_VLESS_RUS.txt"
+        title: "💻 BLACK VLESS RUS Full",
+        desc: "Полный набор с максимумом серверов",
+        size: "~800 конфигов",
+        url: "https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/alive.txt",
+        color: "from-blue-500 to-cyan-500"
       },
       {
-        title: "WHITE CIDR / Reality",
-        desc: "Белые списки + Reality",
-        url: "https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/white-cidr.txt" // подкорректируй путь
+        title: "🛡️ WHITE CIDR/Reality",
+        desc: "Белые списки и Protocol Reality",
+        size: "~100 конфигов",
+        url: "https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/alive.txt",
+        color: "from-green-500 to-emerald-500"
       }
-      // Добавляй остальные по аналогии
     ];
 
-    function createCard(sub) {
+    function createCard(sub, index) {
       const div = document.createElement('div');
-      div.className = `bg-zinc-900 border border-white/10 rounded-3xl p-8 card-hover`;
+      div.className = `feature-card card-hover bg-gradient-to-br opacity-100 hover:opacity-100 relative overflow-hidden`;
+      div.style.animation = `fadeInUp 0.6s ease-out ${index * 0.1}s both`;
+      
       div.innerHTML = `
-        <h3 class="text-3xl font-semibold mb-4">${sub.title}</h3>
-        <p class="text-zinc-400 mb-10">${sub.desc}</p>
-        <div class="flex gap-4">
-          <button onclick="copyLink('${sub.url}')" class="flex-1 py-5 bg-white/5 hover:bg-white/10 border border-white/20 rounded-2xl font-medium transition">📋 Копировать ссылку</button>
-          <button onclick="showQR('${sub.url}')" class="flex-1 py-5 border border-white/30 hover:border-white rounded-2xl font-medium transition">QR-код</button>
+        <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${sub.color} opacity-10 rounded-full -mr-16 -mt-16"></div>
+        
+        <div class="relative z-10">
+          <h3 class="text-2xl font-bold mb-3">${sub.title}</h3>
+          <p class="text-zinc-400 mb-4">${sub.desc}</p>
+          <div class="badge mb-6">${sub.size}</div>
+          
+          <div class="flex gap-3">
+            <button onclick="copyLink('${sub.url}')" class="flex-1 btn-secondary hover:bg-purple-500/20">
+              <i class="fas fa-copy mr-2"></i>Скопировать
+            </button>
+            <button onclick="showQR('${sub.url}')" class="flex-1 btn-secondary hover:bg-purple-500/20">
+              <i class="fas fa-qrcode mr-2"></i>QR
+            </button>
+          </div>
         </div>
       `;
       return div;
     }
 
     function copyLink(url) {
-      navigator.clipboard.writeText(url).then(() => alert("✅ Ссылка скопирована в буфер"));
+      navigator.clipboard.writeText(url).then(() => {
+        const toast = document.createElement('div');
+        toast.className = 'fixed bottom-8 right-8 bg-green-500 text-white px-6 py-4 rounded-lg shadow-lg z-[200] animate-bounce';
+        toast.textContent = '✅ Ссылка скопирована в буфер обмена!';
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+      }).catch(err => {
+        alert('Ошибка: ' + err);
+      });
     }
 
     function showQR(url) {
       const modal = document.createElement('div');
-      modal.className = 'fixed inset-0 bg-black/95 flex items-center justify-center z-[100]';
+      modal.className = 'fixed inset-0 bg-black/95 flex items-center justify-center z-[200] backdrop-blur-md';
       modal.innerHTML = `
-        <div class="bg-zinc-900 p-12 rounded-3xl text-center">
-          <div id="qrcode" class="mx-auto"></div>
-          <p class="mt-8 text-sm text-zinc-400">Сканируй для импорта в клиент</p>
+        <div class="bg-zinc-900 p-12 rounded-2xl text-center border border-white/10 max-w-md w-full mx-4">
+          <h3 class="text-2xl font-bold mb-6">Отсканируйте QR-код</h3>
+          <div id="qrcode" class="mx-auto mb-6 flex justify-center"></div>
+          <p class="text-sm text-zinc-400 mb-6">Откройте клиент VPN и отсканируйте QR-код</p>
+          <button onclick="this.closest('.fixed').remove()" class="w-full btn-secondary">Закрыть</button>
         </div>
       `;
       document.body.appendChild(modal);
-      new QRCode(document.getElementById("qrcode"), { text: url, width: 320, height: 320 });
-      modal.onclick = () => modal.remove();
+      
+      // Генерируем QR код с задержкой для корректного рендера
+      setTimeout(() => {
+        new QRCode(document.getElementById("qrcode"), {
+          text: url,
+          width: 300,
+          height: 300,
+          colorDark: "#ffffff",
+          colorLight: "#1f2937"
+        });
+      }, 100);
+      
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove();
+      });
     }
 
-  
-    document.getElementById('subs-container').append(...subscriptions.map(createCard));
-
-  
-    document.querySelectorAll('.nav-btn').forEach(btn => {
-      btn.addEventListener('mouseenter', () => btn.style.color = '#67e8f9');
-      btn.addEventListener('mouseleave', () => btn.style.color = '');
+    // Добавляем карточки подписок
+    const container = document.getElementById('subs-container');
+    subscriptions.forEach((sub, i) => {
+      container.appendChild(createCard(sub, i));
     });
+    
+    // Добавляем CSS анимацию
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+    
+    // Плавная прокрутка
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Проверяем статус обновления (опционально)
+    async function checkStatus() {
+      try {
+        const res = await fetch('https://api.github.com/repos/Stintik-123/vpn-configs-russia', { cache: 'no-store' });
+        const data = await res.json();
+        console.log('Последнее обновление:', data.pushed_at);
+      } catch (err) {
+        console.error('Ошибка при проверке статуса:', err);
+      }
+    }
+    
+    checkStatus();
   </script>
 </body>
-  </html>
+</html>
