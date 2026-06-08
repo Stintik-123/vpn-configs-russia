@@ -1,261 +1,608 @@
-<!DOCTYPE html>
-<html lang="ru" class="scroll-smooth">
+<!doctype html>
+<html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="VPN-Configs-Russia — инфраструктура мониторинга и анализа VPN-конфигураций">
-  <title>VPN-Configs-Russia — Infrastructure Platform</title>
-  <link rel="stylesheet" href="/www/css/main.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Stintik-123 — удобная страница с VPN config'ами, инструкциями и быстрым доступом к загрузкам." />
+  <meta name="theme-color" content="#0b1020" />
+  <title>Stintik-123 — VPN Configs</title>
+
+  <style>
+    :root {
+      --bg: #070b16;
+      --bg2: #0d1430;
+      --card: rgba(17, 24, 46, 0.88);
+      --card2: rgba(20, 30, 58, 0.94);
+      --text: #eef2ff;
+      --muted: #a9b4d0;
+      --line: rgba(255,255,255,0.08);
+      --accent: #7c5cff;
+      --accent2: #22c7a6;
+      --danger: #ff6b8b;
+      --shadow: 0 24px 70px rgba(0,0,0,0.35);
+      --radius: 24px;
+      --radius-sm: 16px;
+      --max: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124,92,255,0.20), transparent 32%),
+        radial-gradient(circle at top right, rgba(34,199,166,0.14), transparent 26%),
+        linear-gradient(180deg, var(--bg) 0%, #060912 100%);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .container {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 0 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--accent), #4ad6ff);
+      box-shadow: 0 12px 30px rgba(124, 92, 255, 0.35);
+      font-weight: 900;
+      color: white;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      border: 1px solid transparent;
+      transition: 0.2s ease;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      color: var(--text);
+      border-color: var(--line);
+      background: rgba(255,255,255,0.03);
+      outline: none;
+    }
+
+    .hero {
+      padding: 64px 0 26px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(38px, 6vw, 66px);
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      max-width: 12ch;
+    }
+
+    .hero p {
+      margin: 18px 0 0;
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 62ch;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 26px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      border: 1px solid var(--line);
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #5aa9ff);
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 14px 40px rgba(124, 92, 255, 0.30);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+
+    .hero-panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .section {
+      padding: 28px 0 12px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .section h2 {
+      margin: 0;
+      font-size: 28px;
+      letter-spacing: -0.02em;
+    }
+
+    .section p.lead {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 64ch;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, var(--card), var(--card2));
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .config-meta {
+      margin-top: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--muted);
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .tiny {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    .note {
+      margin-top: 14px;
+      color: #cdd5f0;
+      background: rgba(34,199,166,0.08);
+      border: 1px solid rgba(34,199,166,0.22);
+      padding: 14px 16px;
+      border-radius: 16px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 12px;
+    }
+
+    .step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      border-radius: 16px;
+    }
+
+    .num {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      background: linear-gradient(135deg, var(--accent2), #4ad6ff);
+      color: #04111a;
+      font-weight: 900;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .step span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    details {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px 18px;
+    }
+
+    details + details { margin-top: 12px; }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    summary::marker { color: var(--accent2); }
+
+    details p {
+      color: var(--muted);
+      margin: 10px 0 0;
+    }
+
+    footer {
+      padding: 34px 0 40px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+
+    @media (max-width: 960px) {
+      .hero,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav {
+        width: 100%;
+      }
+
+      .nav a {
+        padding-inline: 12px;
+      }
+
+      .hero {
+        padding-top: 40px;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="navbar">
-    <div class="container">
-      <div class="navbar-content">
-        <a href="/www/index.html" class="navbar-logo">
-          <span class="logo-icon">🛡️</span>
-          <span>VPN-Configs</span>
-        </a>
-        
-        <ul class="navbar-links">
-          <li><a href="#features">Features</a></li>
-          <li><a href="/www/pages/configs.html">Configs</a></li>
-          <li><a href="/www/pages/roadmap.html">Roadmap</a></li>
-          <li><a href="/www/pages/docs.html">Docs</a></li>
-          <li><a href="/www/pages/about.html">About</a></li>
-        </ul>
-        
-        <div class="navbar-buttons">
-          <a href="https://github.com/Stintik-123/vpn-configs-russia" class="btn btn-ghost">GitHub</a>
-          <a href="/www/pages/configs.html" class="btn btn-primary">Get Started</a>
-        </div>
-      </div>
-    </div>
-  </nav>
+  <div class="container">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Stintik-123 на главную">
+        <span class="brand-mark">S</span>
+        <span>Stintik-123</span>
+      </a>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
-    
-    <svg class="hero-globe" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(124, 58, 237, 0.2)" stroke-width="0.5"/>
-      <circle cx="50" cy="50" r="35" fill="none" stroke="rgba(124, 58, 237, 0.15)" stroke-width="0.5"/>
-      <circle cx="50" cy="50" r="25" fill="none" stroke="rgba(124, 58, 237, 0.1)" stroke-width="0.5"/>
-      
-      <circle cx="50" cy="20" r="2" fill="#7c3aed" opacity="0.8"/>
-      <circle cx="70" cy="40" r="2" fill="#3b82f6" opacity="0.8"/>
-      <circle cx="60" cy="70" r="2" fill="#7c3aed" opacity="0.8"/>
-      <circle cx="30" cy="60" r="2" fill="#3b82f6" opacity="0.8"/>
-      <circle cx="40" cy="35" r="2" fill="#7c3aed" opacity="0.8"/>
-      
-      <line x1="50" y1="20" x2="70" y2="40" stroke="rgba(124, 58, 237, 0.4)" stroke-width="0.3" opacity="0.5"/>
-      <line x1="70" y1="40" x2="60" y2="70" stroke="rgba(59, 130, 246, 0.4)" stroke-width="0.3" opacity="0.5"/>
-      <line x1="60" y1="70" x2="30" y2="60" stroke="rgba(124, 58, 237, 0.4)" stroke-width="0.3" opacity="0.5"/>
-      <line x1="30" y1="60" x2="40" y2="35" stroke="rgba(59, 130, 246, 0.4)" stroke-width="0.3" opacity="0.5"/>
-      <line x1="40" y1="35" x2="50" y2="20" stroke="rgba(124, 58, 237, 0.4)" stroke-width="0.3" opacity="0.5"/>
-    </svg>
-    
-    <div class="container hero-content">
-      <div class="hero-text">
-        <h1>Infrastructure for VPN Configuration</h1>
-        <p class="hero-subtitle">Automatic collection, filtering, testing and publication of quality VPN configs. Forget about searching through thousands of dead servers.</p>
-        
-        <div class="hero-buttons">
-          <a href="/www/pages/configs.html" class="btn btn-primary">📥 Get Configs</a>
-          <a href="/www/pages/docs.html" class="btn btn-secondary">📖 Documentation</a>
-        </div>
-        
-        <div class="hero-stats">
-          <div class="stat" style="animation-delay: 0s">
-            <div class="stat-value">1000+</div>
-            <div class="stat-label">Active Configs</div>
-          </div>
-          <div class="stat" style="animation-delay: 0.1s">
-            <div class="stat-value">99.2%</div>
-            <div class="stat-label">Uptime</div>
-          </div>
-          <div class="stat" style="animation-delay: 0.2s">
-            <div class="stat-value">50+</div>
-            <div class="stat-label">Regions</div>
-          </div>
-          <div class="stat" style="animation-delay: 0.3s">
-            <div class="stat-value">2h</div>
-            <div class="stat-label">Update Cycle</div>
+      <nav class="nav" aria-label="Главная навигация">
+        <a href="#configs">Configs</a>
+        <a href="#howto">How to</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <div>
+          <div class="eyebrow">VPN configs • fast access • mobile friendly</div>
+          <h1>Сайт для удобных VPN config'ов</h1>
+          <p>
+            Быстрая и чистая страница для публикации конфигов, обновлений и инструкций.
+            Подходит для ПК, телефона и любых клиентов с импортом профилей.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#configs">Открыть configs</a>
+            <a class="btn btn-secondary" href="#howto">Как подключить</a>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Features Section -->
-  <section id="features" class="section features-section">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-label">⚙️ Core Features</div>
-        <h2>What We Do</h2>
-        <p>Automated infrastructure for managing VPN configurations with real-time quality assurance.</p>
-      </div>
-      
-      <div class="features-grid">
-        <div class="card feature-card">
-          <div class="card-icon">🔄</div>
-          <h3>Automatic Collection</h3>
-          <p>Collects from verified sources in real-time. Supports base64, plain-text, and JSON formats.</p>
-        </div>
-        
-        <div class="card feature-card" style="animation-delay: 0.1s">
-          <div class="card-icon">✅</div>
-          <h3>Smart Filtering</h3>
-          <p>Removes duplicates, test configs, and junk servers. Intelligent deduplication.</p>
-        </div>
-        
-        <div class="card feature-card" style="animation-delay: 0.2s">
-          <div class="card-icon">🧪</div>
-          <h3>Continuous Testing</h3>
-          <p>TCP ping, DNS resolution, HTTPS handshake. Only verified configs published.</p>
-        </div>
-        
-        <div class="card feature-card" style="animation-delay: 0.3s">
-          <div class="card-icon">📊</div>
-          <h3>Real-time Stats</h3>
-          <p>Live metrics: server count, uptime, speed, regional distribution.</p>
-        </div>
-        
-        <div class="card feature-card" style="animation-delay: 0.4s">
-          <div class="card-icon">🤖</div>
-          <h3>CI/CD Automation</h3>
-          <p>GitHub Actions: update every 2 hours. Automatic deployment and monitoring.</p>
-        </div>
-        
-        <div class="card feature-card" style="animation-delay: 0.5s">
-          <div class="card-icon">🔐</div>
-          <h3>Open Source</h3>
-          <p>Full transparency: source code on GitHub, no hidden functionality, MIT licensed.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+        <aside class="hero-panel" aria-label="Краткая информация">
+          <h2 style="margin: 0 0 8px;">Статус проекта</h2>
+          <p style="margin: 0; color: var(--muted);">
+            Здесь можно показывать актуальные профили, дату обновления и быстрые ссылки на скачивание.
+          </p>
 
-  <!-- How It Works -->
-  <section class="section how-it-works">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-label">🔍 How It Works</div>
-        <h2>The Verification Process</h2>
-        <p>Multi-stage pipeline ensuring only high-quality configurations are published.</p>
-      </div>
-      
-      <div class="process-grid">
-        <div class="process-step">
-          <div class="process-icon">📥</div>
-          <div class="process-title">Collection</div>
-          <div class="process-desc">Gather from sources</div>
-        </div>
-        <div class="process-arrow">→</div>
-        <div class="process-step">
-          <div class="process-icon">🧹</div>
-          <div class="process-title">Cleaning</div>
-          <div class="process-desc">Remove duplicates</div>
-        </div>
-        <div class="process-arrow">→</div>
-        <div class="process-step">
-          <div class="process-icon">✅</div>
-          <div class="process-title">Testing</div>
-          <div class="process-desc">Verify connectivity</div>
-        </div>
-        <div class="process-arrow">→</div>
-        <div class="process-step">
-          <div class="process-icon">🚀</div>
-          <div class="process-title">Publishing</div>
-          <div class="process-desc">Deploy to CDN</div>
-        </div>
-      </div>
-    </div>
-  </section>
+          <div class="stat-grid">
+            <div class="stat">
+              <strong>3</strong>
+              <span>готовых профиля</span>
+            </div>
+            <div class="stat">
+              <strong>24/7</strong>
+              <span>доступ к странице</span>
+            </div>
+            <div class="stat">
+              <strong>RU/EN</strong>
+              <span>удобный интерфейс</span>
+            </div>
+            <div class="stat">
+              <strong>Fast</strong>
+              <span>лёгкая загрузка</span>
+            </div>
+          </div>
 
-  <!-- Clients Section -->
-  <section class="section clients-section">
-    <div class="container">
-      <div class="section-header">
-        <div class="section-label">📱 Supported Clients</div>
-        <h2>Works Everywhere</h2>
-        <p>Compatible with popular VPN clients across all platforms.</p>
-      </div>
-      
-      <div class="clients-grid">
-        <div class="client-card"><div class="client-icon">📱</div><div class="client-name">Hiddify</div><div class="client-platform">Windows, macOS, Linux, Android</div></div>
-        <div class="client-card"><div class="client-icon">⚙️</div><div class="client-name">v2rayN</div><div class="client-platform">Windows, Android</div></div>
-        <div class="client-card"><div class="client-icon">🎮</div><div class="client-name">NekoBox</div><div class="client-platform">Android, iOS</div></div>
-        <div class="client-card"><div class="client-icon">🔷</div><div class="client-name">Clash Meta</div><div class="client-platform">Windows, macOS, Linux</div></div>
-        <div class="client-card"><div class="client-icon">🎨</div><div class="client-name">FlClashX</div><div class="client-platform">macOS</div></div>
-        <div class="client-card"><div class="client-icon">📡</div><div class="client-name">Streisand</div><div class="client-platform">iOS, macOS</div></div>
-      </div>
-    </div>
-  </section>
+          <div class="note">
+            Совет: если будешь выкладывать реальные configs, лучше добавь дату обновления и кнопку “Проверить актуальность”.
+          </div>
+        </aside>
+      </section>
 
-  <!-- CTA Section -->
-  <section class="section cta-section">
-    <div class="container">
-      <div class="cta-content">
-        <h2>Ready to Get Started?</h2>
-        <p>Choose a subscription type and start using quality VPN configs immediately.</p>
-        
-        <div class="cta-buttons">
-          <a href="/www/pages/configs.html" class="btn btn-primary">📥 Get Configs</a>
-          <a href="https://github.com/Stintik-123/vpn-configs-russia" class="btn btn-secondary">View on GitHub</a>
+      <section class="section" id="configs">
+        <div class="section-head">
+          <div>
+            <h2>Доступные configs</h2>
+            <p class="lead">Карточки ниже уже готовы под замену на реальные файлы, ссылки или API-данные.</p>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-column">
-          <h4>Project</h4>
-          <ul>
-            <li><a href="https://github.com/Stintik-123/vpn-configs-russia">GitHub Repository</a></li>
-            <li><a href="https://github.com/Stintik-123/vpn-configs-russia/issues">Issues & Bugs</a></li>
-            <li><a href="https://github.com/Stintik-123/vpn-configs-russia/discussions">Discussions</a></li>
-          </ul>
-        </div>
-        
-        <div class="footer-column">
-          <h4>Documentation</h4>
-          <ul>
-            <li><a href="/www/pages/docs.html">Getting Started</a></li>
-            <li><a href="/www/pages/docs.html">API Reference</a></li>
-            <li><a href="/www/pages/about.html">Architecture</a></li>
-          </ul>
-        </div>
-        
-        <div class="footer-column">
-          <h4>Resources</h4>
-          <ul>
-            <li><a href="#">Supported Clients</a></li>
-            <li><a href="/www/pages/roadmap.html">Roadmap</a></li>
-            <li><a href="#">Status Page</a></li>
-          </ul>
-        </div>
-        
-        <div class="footer-column">
-          <h4>Connect</h4>
-          <ul>
-            <li><a href="https://t.me/Stintik123">Telegram</a></li>
-            <li><a href="mailto:hello@example.com">Email</a></li>
-            <li><a href="https://github.com/Stintik-123">GitHub Profile</a></li>
-          </ul>
-        </div>
-      </div>
-      
-      <div class="footer-bottom">
-        <p>© 2026 VPN-Configs-Russia. Made with ❤️ for internet freedom. MIT Licensed.</p>
-      </div>
-    </div>
-  </footer>
+        <div class="grid">
+          <article class="card">
+            <h3>Config Alpha</h3>
+            <p>Основной профиль для повседневного использования и быстрого импорта.</p>
+            <div class="config-meta">
+              <span class="chip">VLESS</span>
+              <span class="chip">Stable</span>
+              <span class="chip">Updated today</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn btn-primary tiny" href="#">Скачать</a>
+              <a class="btn btn-secondary tiny" href="#">Подробнее</a>
+            </div>
+          </article>
 
-  <script src="/www/js/main.js"></script>
+          <article class="card">
+            <h3>Config Beta</h3>
+            <p>Запасной вариант, если нужен другой сервер или резервный профиль.</p>
+            <div class="config-meta">
+              <span class="chip">Trojan</span>
+              <span class="chip">Backup</span>
+              <span class="chip">Low ping</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn btn-primary tiny" href="#">Скачать</a>
+              <a class="btn btn-secondary tiny" href="#">Подробнее</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Config Gamma</h3>
+            <p>Тестовый профиль для проверки соединения и переключения между узлами.</p>
+            <div class="config-meta">
+              <span class="chip">SS</span>
+              <span class="chip">Test</span>
+              <span class="chip">Quick switch</span>
+            </div>
+            <div class="card-actions">
+              <a class="btn btn-primary tiny" href="#">Скачать</a>
+              <a class="btn btn-secondary tiny" href="#">Подробнее</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="howto">
+        <div class="section-head">
+          <div>
+            <h2>Как подключить</h2>
+            <p class="lead">Короткая инструкция, которую легко понять даже с телефона.</p>
+          </div>
+        </div>
+
+        <div class="steps">
+          <div class="step">
+            <div class="num">1</div>
+            <div>
+              <strong>Скачай или открой config</strong>
+              <span>Используй кнопку скачивания или вставь ссылку на файл.</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">2</div>
+            <div>
+              <strong>Импортируй в клиент</strong>
+              <span>Подойдут клиенты, которые умеют загружать профили по ссылке или файлу.</span>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="num">3</div>
+            <div>
+              <strong>Проверь подключение</strong>
+              <span>После импорта открой страницу статуса или просто протестируй соединение.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="faq">
+        <div class="section-head">
+          <div>
+            <h2>FAQ</h2>
+            <p class="lead">Ответы на вопросы, которые обычно возникают перед импортом.</p>
+          </div>
+        </div>
+
+        <details>
+          <summary>Как заменить кнопки на реальные ссылки?</summary>
+          <p>Просто вставь адрес файла в href, например на .json, .txt, .conf или на свой CDN/репозиторий.</p>
+        </details>
+
+        <details>
+          <summary>Как сделать список конфигов из JSON?</summary>
+          <p>Можно подключить небольшой JS-скрипт и рендерить карточки из массива объектов. Это удобно для обновления без ручного редактирования HTML.</p>
+        </details>
+
+        <details>
+          <summary>Можно ли добавить светлую тему?</summary>
+          <p>Да. Лучше сделать переключатель темы через CSS-переменные и localStorage, чтобы пользователь сохранял выбор.</p>
+        </details>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="card">
+          <h2 style="margin-top:0;">Контакты и обновления</h2>
+          <p style="color: var(--muted); margin-bottom: 16px;">
+            Здесь можно поставить Telegram, Discord, GitHub или форму обратной связи.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-secondary" href="#">Telegram</a>
+            <a class="btn btn-secondary" href="#">GitHub</a>
+            <a class="btn btn-secondary" href="#">Discord</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-row">
+        <span>© 2026 Stintik-123</span>
+        <span>Made for fast configs and clean UX</span>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
