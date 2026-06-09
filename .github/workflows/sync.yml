@@ -20,7 +20,9 @@ jobs:
           python-version: '3.11'
 
       - name: Install deps
-        run: pip install aiohttp
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install aiohttp aiogram
 
       - name: Collect
         env:
@@ -28,7 +30,7 @@ jobs:
         run: python tools/collector.py
 
       - name: Clean
-        run: python tools/clean.py
+        run: python tools/clean.py --input raw.txt --output cleaned.txt
 
       - name: Test
         run: python tools/test.py
@@ -37,6 +39,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add alive.txt
-          git commit -m "Update candidates $(date)" || exit 0
-          git push
+          git add alive.txt data/alive.txt data/report.json || true
+          git diff --staged --quiet || (
+            git commit -m "Update candidates $(date -u +%Y-%m-%dT%H:%M:%SZ)" && git push
+          )
