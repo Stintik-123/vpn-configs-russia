@@ -2,176 +2,245 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VPN Configs Russia</title>
-    <link rel="stylesheet" href="site/css/style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #FFFFFF;
+            color: #111111;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.5;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* стили контента (минимализм) */
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .lead {
+            color: #444;
+            margin-bottom: 2rem;
+            border-left: 2px solid #111;
+            padding-left: 1rem;
+        }
+        .card {
+            background: #F5F5F5;
+            border: 1px solid #DDD;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.5rem;
+        }
+        .url-box {
+            background: #FFF;
+            border: 1px solid #CCC;
+            padding: 0.75rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+            word-break: break-all;
+            margin: 0.75rem 0;
+        }
+        button {
+            background: #111;
+            color: #FFF;
+            border: none;
+            border-radius: 40px;
+            padding: 0.5rem 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #333;
+        }
+        .flex-row {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .stats-grid {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .stat {
+            background: #F5F5F5;
+            padding: 0.75rem;
+            border-radius: 12px;
+            text-align: center;
+            flex: 1;
+        }
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* ----- СМАЙЛИК (живой, эксклюзив) ----- */
+        .mascot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0.9;
+            animation: breathe 6s ease-in-out infinite;
+        }
+
+        .eye {
+            fill: #111;
+            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* Анимация поворота при загрузке */
+        .mascot.rotate-in {
+            animation: rotateIn 0.8s ease-out, breathe 6s ease-in-out infinite 0.8s;
+        }
+
+        @keyframes rotateIn {
+            0% { transform: rotate(90deg) scale(0.8); opacity: 0; }
+            100% { transform: rotate(0deg) scale(1); opacity: 0.9; }
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        @media (max-width: 600px) {
+            .mascot { width: 60px; height: 60px; bottom: 10px; right: 10px; }
+        }
+    </style>
 </head>
 <body>
 
-<!-- ========= ЭКСКЛЮЗИВНАЯ АНИМАЦИЯ ЗАГРУЗКИ (1 РАЗ) ========= -->
-<div class="preloader" id="preloader">
-    <div class="terminal" id="terminal">
-        <span class="line">> vpn-configs-russia.sys</span>
-        <span class="line">> loading kernel...</span>
-        <span class="line">> fetching routes...</span>
-        <span class="line">> testing proxies...</span>
-        <span class="line" id="lastLine">> establishing secure channel<span class="cursor"></span></span>
+<div class="container">
+    <h1>VPN Configs<br>Russia</h1>
+    <div class="lead">
+        Белый фон, чёрный смайлик. Рабочие конфиги. Без регистрации.
+    </div>
+
+    <!-- ГЛАВНАЯ КАРТОЧКА -->
+    <div class="card">
+        <div class="card-title">📌 Универсальная подписка</div>
+        <div class="card-desc">Для Hiddify, v2rayN, NekoBox. 200+ живых серверов.</div>
+        <div class="url-box">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/alive.txt</div>
+        <div class="flex-row">
+            <button class="copy-btn" data-url="https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/alive.txt">
+                📋 Скопировать ссылку
+            </button>
+        </div>
+    </div>
+
+    <!-- ЗАПАСНЫЕ ВАРИАНТЫ -->
+    <div class="card">
+        <div class="card-title">🔄 Запасные варианты</div>
+        <div style="margin-bottom: 0.8rem;">
+            <div class="url-box" style="font-size:0.75rem;">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/mobile.txt</div>
+            <button class="copy-btn" data-url="https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/mobile.txt">📱 Мобильный</button>
+        </div>
+        <div>
+            <div class="url-box" style="font-size:0.75rem;">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/white-sni.txt</div>
+            <button class="copy-btn" data-url="https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/white-sni.txt">📋 Белые списки (SNI)</button>
+        </div>
+    </div>
+
+    <!-- ИНСТРУКЦИЯ -->
+    <div class="card">
+        <div class="card-title">📱 Как подключиться за 10 секунд</div>
+        <div>1️⃣ Скачай Hiddify (Windows/Android/iOS)</div>
+        <div>2️⃣ Скопируй ссылку выше</div>
+        <div>3️⃣ В Hiddify: Новый профиль → Импорт из URL → вставить ссылку</div>
+        <div>4️⃣ Нажми «Подключиться»</div>
+    </div>
+
+    <div class="footer" style="text-align:center; margin-top:2rem; color:#666;">
+        ⚡ Обновление каждые 2 часа · GitHub Actions · <a href="https://github.com/Stintik-123/vpn-configs-russia">GitHub</a>
     </div>
 </div>
 
-<!-- ========= ОСНОВНОЙ КОНТЕНТ (СКРЫТ ПОКА НЕ ЗАГРУЗИТСЯ) ========= -->
-<div id="app" style="display: none;">
-    <div class="container">
-        <!-- шапка -->
-        <span class="badge">⚡ РАБОТАЕТ СЕЙЧАС</span>
-        <h1>VPN Configs<br>Russia</h1>
-        <div class="lead">
-            Чёрно-белый сайт для тех, кому нужен просто рабочий VPN.<br>
-            Скопировал → вставил → забыл.
-        </div>
+<!-- ===== ЖИВОЙ СМАЙЛИК (SVG) ===== -->
+<svg class="mascot rotate-in" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- глаза (круги, расположены вертикально) -->
+    <circle class="eye" cx="50" cy="35" r="5" fill="black" />
+    <circle class="eye" cx="50" cy="55" r="5" fill="black" />
+    <!-- улыбка: дуга в форме скобки (справа) -->
+    <path d="M62 42 Q68 45 62 48" stroke="black" stroke-width="3" stroke-linecap="round" fill="none" />
+</svg>
 
-        <!-- ГЛАВНАЯ ПОДПИСКА -->
-        <div class="card">
-            <div class="card-title">📌 Универсальная подписка</div>
-            <div class="card-desc">
-                Подходит для <strong>Hiddify, v2rayN, NekoBox, Streisand</strong>.<br>
-                Обновляется каждые 2 часа. 200+ живых серверов (TCP-проверка).
-            </div>
-            <div class="url-box" id="mainUrl">
-                https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/alive.txt
-            </div>
-            <div class="flex-row">
-                <button class="copy-btn" data-url="https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/alive.txt">
-                    📋 Скопировать ссылку
-                </button>
-                <span style="font-size: 0.8rem; color: var(--text-dim);">✅ проверено TCP</span>
-            </div>
-        </div>
-
-        <!-- ЗАПАСНЫЕ ВАРИАНТЫ -->
-        <div class="card">
-            <div class="card-title">🔄 Если не работает — запасные варианты</div>
-            <div class="card-desc">
-                Оператор блокирует? Медленно на телефоне? Попробуй другой список.
-            </div>
-
-            <div style="margin-bottom: 1rem;">
-                <div class="url-box" style="font-size: 0.75rem;">
-                    https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/mobile.txt
-                </div>
-                <button class="copy-btn" data-url="https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/mobile.txt">
-                    📋 Мобильный (легче)
-                </button>
-            </div>
-
-            <div style="margin-bottom: 1rem;">
-                <div class="url-box" style="font-size: 0.75rem;">
-                    https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/white-sni.txt
-                </div>
-                <button class="copy-btn" data-url="https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/white-sni.txt">
-                    📋 Белые списки (SNI)
-                </button>
-            </div>
-
-            <div>
-                <div class="url-box" style="font-size: 0.75rem;">
-                    https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/protocol-vless.txt
-                </div>
-                <button class="copy-btn" data-url="https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/protocol-vless.txt">
-                    📋 Только VLESS
-                </button>
-            </div>
-        </div>
-
-        <!-- ИНСТРУКЦИЯ ЗА 10 СЕКУНД -->
-        <div class="card">
-            <div class="card-title">📱 Как подключиться за 10 секунд</div>
-            <div style="display: flex; flex-direction: column; gap: 0.8rem;">
-                <div>1️⃣ <strong>Скачай Hiddify</strong><br>
-                    <a href="https://github.com/hiddify/hiddify-next/releases" target="_blank">Windows / Mac / Linux</a> | 
-                    <a href="https://play.google.com/store/apps/details?id=app.hiddify.com" target="_blank">Android</a> | 
-                    <a href="https://apps.apple.com/app/hiddify/id6596777533" target="_blank">iOS</a>
-                </div>
-                <div>2️⃣ <strong>Скопируй ссылку выше</strong> (любую)</div>
-                <div>3️⃣ <strong>В Hiddify:</strong> «Новый профиль» → «Импорт из URL» → вставить ссылку → «Добавить»</div>
-                <div>4️⃣ <strong>Нажми «Подключиться»</strong> и выбери любой сервер</div>
-            </div>
-        </div>
-
-        <!-- СТАТИСТИКА (живая, из stats.json) -->
-        <div class="card">
-            <div class="card-title">📊 Сейчас в системе</div>
-            <div class="stats-grid">
-                <div class="stat"><div class="stat-value" id="stats-total">—</div><div class="stat-label">собрано всего</div></div>
-                <div class="stat"><div class="stat-value" id="stats-alive">—</div><div class="stat-label">живых (TCP)</div></div>
-                <div class="stat"><div class="stat-value" id="stats-time">—</div><div class="stat-label">последний запуск</div></div>
-            </div>
-            <div class="card-desc" style="margin-top: 0.5rem;">
-                ⚠️ Сейчас проверка — только TCP (быстрая).<br>
-                🔜 В планах: точная проверка внутри РФ (VPS), рейтинг серверов.
-            </div>
-        </div>
-
-        <!-- ПОДВАЛ -->
-        <div class="footer">
-            Проект открытый. Код на <a href="https://github.com/Stintik-123/vpn-configs-russia" target="_blank">GitHub</a>.<br>
-            Обновление каждые 2 часа · GitHub Actions · Россия<br>
-            Если не работает — напиши в <a href="https://github.com/Stintik-123/vpn-configs-russia/issues" target="_blank">Issues</a>
-        </div>
-    </div>
-</div>
-
-<!-- ========= СКРИПТЫ ========= -->
-<script src="site/js/theme.js"></script>
-<script src="site/js/main.js"></script>
-
-<!-- АНИМАЦИЯ ЗАГРУЗКИ (ЭКСКЛЮЗИВ) -->
 <script>
     (function() {
-        const alreadySeen = localStorage.getItem('vpn_preloader_seen');
-        const preloader = document.getElementById('preloader');
-        const app = document.getElementById('app');
-        const lastLine = document.getElementById('lastLine');
-        const finalText = "> establishing secure channel... ok.";
+        // 1. Анимация при загрузке (rotate-in) уже встроена в класс
 
-        if (alreadySeen) {
-            if (preloader) preloader.style.display = 'none';
-            if (app) app.style.display = 'block';
-            return;
+        // 2. Подмигивание при копировании (верхний глаз)
+        const mascotSvg = document.querySelector('.mascot');
+        const topEye = document.querySelector('.eye:first-child');
+        
+        function wink() {
+            if (!topEye) return;
+            const originalR = topEye.getAttribute('r');
+            // Превращаем круг в горизонтальную линию (имитация закрытого глаза)
+            topEye.setAttribute('ry', '1');
+            topEye.setAttribute('rx', '4');
+            setTimeout(() => {
+                topEye.setAttribute('r', originalR);
+                topEye.removeAttribute('ry');
+                topEye.removeAttribute('rx');
+            }, 250);
         }
 
-        function typeLastLine(text, element, callback) {
-            let i = 0;
-            element.innerHTML = '';
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, 40);
-                } else {
-                    const cursorSpan = document.createElement('span');
-                    cursorSpan.className = 'cursor';
-                    element.appendChild(cursorSpan);
-                    if (callback) callback();
+        // Навешиваем подмигивание на все кнопки копирования
+        const copyBtns = document.querySelectorAll('.copy-btn');
+        copyBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const url = this.getAttribute('data-url');
+                if (url) {
+                    navigator.clipboard.writeText(url).catch(() => {});
+                    wink(); // анимация
+                    // меняем текст кнопки на секунду
+                    const originalText = this.innerHTML;
+                    this.innerHTML = '✅ Скопировано!';
+                    setTimeout(() => { this.innerHTML = originalText; }, 1000);
                 }
-            }
-            type();
-        }
-
-        setTimeout(() => {
-            typeLastLine(finalText, lastLine, () => {
-                setTimeout(() => {
-                    preloader.classList.add('hide');
-                    setTimeout(() => {
-                        preloader.style.display = 'none';
-                        app.style.display = 'block';
-                        localStorage.setItem('vpn_preloader_seen', 'true');
-                    }, 400);
-                }, 300);
             });
-        }, 1200);
+        });
+
+        // 3. Дополнительный эффект: если 20 секунд бездействия — смайлик зевает (чуть шире улыбка)
+        let idleTimer;
+        const smile = document.querySelector('.mascot path');
+        const originalSmile = smile?.getAttribute('d');
+        
+        function yawn() {
+            if (!smile) return;
+            smile.setAttribute('d', 'M60 40 Q70 48 62 52');
+            setTimeout(() => {
+                if (originalSmile) smile.setAttribute('d', originalSmile);
+            }, 800);
+        }
+        
+        function resetIdleTimer() {
+            clearTimeout(idleTimer);
+            idleTimer = setTimeout(yawn, 20000);
+        }
+        
+        document.addEventListener('mousemove', resetIdleTimer);
+        document.addEventListener('click', resetIdleTimer);
+        resetIdleTimer();
     })();
 </script>
-
 </body>
 </html>
