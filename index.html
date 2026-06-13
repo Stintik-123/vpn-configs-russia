@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>VPN Configs Russia — живой хаб</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>VPN Configs Russia — минимализм с характером</title>
     <style>
         * {
             margin: 0;
@@ -12,119 +12,80 @@
         }
 
         body {
-            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
-            background: #050b1a;
-            color: #ffffff;
-            overflow-x: hidden;
-            min-height: 100vh;
+            background: #000000;
+            color: #EEEEEE;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+            padding: 2rem 1rem;
         }
 
-        /* Анимированный фон — тот самый, имба */
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: radial-gradient(ellipse at 20% 30%, #0a1a3a, #030612);
-        }
-
-        .animated-bg::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 40% 60%, rgba(30, 80, 150, 0.15) 0%, transparent 60%);
-            animation: slowDrift 24s ease-in-out infinite;
-        }
-
-        @keyframes slowDrift {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(-5%, -3%); }
-        }
-
-        /* Контейнер */
         .container {
             max-width: 900px;
             margin: 0 auto;
-            padding: 2rem 1.5rem;
-            position: relative;
-            z-index: 2;
         }
 
-        /* Карточки — лёгкий стекло-эффект */
-        .card {
-            background: rgba(15, 25, 45, 0.65);
-            backdrop-filter: blur(14px);
-            border-radius: 28px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(80, 140, 210, 0.3);
-            transition: transform 0.2s ease, opacity 0.4s ease;
-            opacity: 0;
-            transform: translateY(12px);
-            animation: fadeUp 0.5s forwards;
-        }
-
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* задержки для карточек */
-        .card:nth-child(1) { animation-delay: 0.05s; }
-        .card:nth-child(2) { animation-delay: 0.15s; }
-        .card:nth-child(3) { animation-delay: 0.25s; }
-        .card:nth-child(4) { animation-delay: 0.35s; }
-
-        .card-title {
-            font-size: 1.3rem;
-            font-weight: 600;
+        /* шапка */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
             margin-bottom: 0.5rem;
         }
-
-        .card-desc {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 1rem;
+        .tagline {
+            color: #888;
+            margin-bottom: 2rem;
+            border-left: 2px solid #fff;
+            padding-left: 1rem;
         }
 
+        /* карточки */
+        .card {
+            background: #111111;
+            border: 1px solid #222;
+            border-radius: 24px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: 0.2s;
+        }
+        .card-title {
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        .card-desc {
+            color: #aaa;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
         .url-box {
-            background: rgba(0, 0, 0, 0.5);
+            background: #0a0a0a;
+            border: 1px solid #333;
             border-radius: 60px;
-            padding: 0.7rem 1rem;
+            padding: 0.75rem 1rem;
             font-family: monospace;
             font-size: 0.75rem;
             word-break: break-all;
             margin: 0.75rem 0;
-            border: 1px solid rgba(80, 140, 210, 0.4);
         }
-
         button {
-            background: #2c6e9e;
+            background: #fff;
+            color: #000;
             border: none;
-            padding: 0.6rem 1.4rem;
+            padding: 0.5rem 1.2rem;
             border-radius: 40px;
-            color: white;
             font-weight: 600;
             cursor: pointer;
-            transition: 0.15s linear;
+            transition: 0.1s linear;
             font-family: inherit;
         }
-
         button:hover {
-            background: #1e5a85;
-            transform: scale(0.98);
+            background: #ddd;
         }
-
         .flex-row {
             display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
             align-items: center;
-            flex-wrap: wrap;
             justify-content: space-between;
         }
 
@@ -132,125 +93,158 @@
         .stats-grid {
             display: flex;
             gap: 1rem;
-            margin: 1rem 0;
             flex-wrap: wrap;
+            margin: 1rem 0;
         }
-
         .stat {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 24px;
-            padding: 0.7rem 1rem;
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 20px;
+            padding: 0.75rem;
             text-align: center;
             flex: 1;
-            border: 1px solid rgba(80, 140, 210, 0.2);
         }
-
         .stat-value {
             font-size: 2rem;
             font-weight: 700;
             font-family: monospace;
         }
-
         .stat-label {
             font-size: 0.7rem;
-            opacity: 0.7;
+            color: #aaa;
         }
 
-        /* кнопка копирования зелёная вспышка */
-        .copy-success {
-            background: #1f8a4c !important;
-            transition: 0.1s;
+        /* гайды (сворачиваемые) */
+        details {
+            margin-top: 0.8rem;
+        }
+        summary {
+            font-weight: 600;
+            cursor: pointer;
+            color: #fff;
+            background: #1a1a1a;
+            padding: 0.6rem;
+            border-radius: 40px;
+            list-style: none;
+        }
+        .guide-content {
+            padding: 1rem 0 0 1rem;
+            color: #ccc;
         }
 
-        /* тряска при ошибке */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-4px); }
-            75% { transform: translateX(4px); }
-        }
-        .shake-card {
-            animation: shake 0.2s ease-in-out 0s 2;
-        }
-
-        /* рука-галочка (появляется один раз) */
-        .hand-overlay {
+        /* маскот (твой рисунок SVG) */
+        .mascot {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 20px;
+            right: 20px;
+            width: 70px;
+            height: 70px;
+            cursor: pointer;
             z-index: 1000;
-            pointer-events: none;
-            animation: handFly 0.8s ease-out forwards;
+            transition: transform 0.2s ease;
+        }
+        .mascot:hover {
+            transform: scale(1.05);
         }
 
-        @keyframes handFly {
-            0% { transform: translateX(100px) scale(0.5); opacity: 0; }
-            50% { transform: translateX(0) scale(1.1); opacity: 1; }
-            100% { transform: translateX(0) scale(1); opacity: 0; visibility: hidden; }
+        /* всплывающая подсказка от маскота */
+        .mascot-tip {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            background: #000;
+            border: 1px solid #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            z-index: 1000;
+            animation: fadeOut 3s forwards;
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; transform: translateY(0); }
+            70% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
         }
 
         .footer {
             text-align: center;
             font-size: 0.7rem;
-            opacity: 0.5;
+            color: #444;
             margin-top: 2rem;
         }
-
         a {
-            color: #88ccff;
-            text-decoration: none;
+            color: #fff;
+            text-decoration: underline;
         }
 
         @media (max-width: 600px) {
-            .container { padding: 1rem; }
-            .card-title { font-size: 1.1rem; }
+            body { padding: 1rem; }
+            h1 { font-size: 1.8rem; }
             .stat-value { font-size: 1.3rem; }
+            .mascot { width: 55px; height: 55px; bottom: 15px; right: 15px; }
         }
     </style>
 </head>
 <body>
 
-<div class="animated-bg"></div>
-
 <div class="container">
-    <!-- Карточка 1: главная -->
+    <h1>VPN Configs<br>Russia</h1>
+    <div class="tagline">Минимализм. Никакой мишуры. Только рабочие конфиги.</div>
+
+    <!-- главная карточка -->
     <div class="card">
-        <div class="card-title">⚡ VPN-Configs Russia</div>
-        <div class="card-desc">Живые конфиги. Обновление каждые 2 часа. Без регистрации.</div>
+        <div class="card-title">⚡ Универсальная подписка</div>
+        <div class="card-desc">Для Hiddify, v2rayN, NekoBox. Обновление каждые 2 часа.</div>
         <div class="url-box" id="mainUrl">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/alive.txt</div>
         <div class="flex-row">
             <button id="copyMainBtn">📋 Скопировать ссылку</button>
-            <span style="font-size:0.7rem;">✅ проверено TCP</span>
+            <span style="color:#888;">✅ TCP проверка</span>
         </div>
     </div>
 
-    <!-- Карточка 2: запасные варианты -->
+    <!-- запасные варианты -->
     <div class="card">
         <div class="card-title">🔄 Запасные протоколы</div>
         <div class="card-desc">Не работает? Попробуй мобильный или белые списки.</div>
-        <div class="url-box" style="font-size:0.7rem;" id="mobileUrl">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/mobile.txt</div>
-        <button id="copyMobileBtn">📱 Мобильный</button>
-        <div class="url-box" style="font-size:0.7rem; margin-top:0.8rem;" id="whiteUrl">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/white-sni.txt</div>
+        <div class="url-box" style="font-size:0.75rem;" id="mobileUrl">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/mobile.txt</div>
+        <button id="copyMobileBtn" style="margin-right:1rem;">📱 Мобильный</button>
+        <div class="url-box" style="font-size:0.75rem; margin-top:0.8rem;" id="whiteUrl">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/white-sni.txt</div>
         <button id="copyWhiteBtn">📋 Белые списки (SNI)</button>
     </div>
 
-    <!-- Карточка статистики -->
+    <!-- статистика -->
     <div class="card">
-        <div class="card-title">📊 Статус системы</div>
+        <div class="card-title">📊 Сейчас в системе</div>
         <div class="stats-grid" id="statsBlock">
-            <div class="stat"><div class="stat-value" id="totalStat">0</div><div class="stat-label">собрано</div></div>
-            <div class="stat"><div class="stat-value" id="aliveStat">0</div><div class="stat-label">живых (TCP)</div></div>
-            <div class="stat"><div class="stat-value" id="timeStat">-</div><div class="stat-label">последний запуск</div></div>
+            <div class="stat"><div class="stat-value" id="totalStat">—</div><div class="stat-label">собрано</div></div>
+            <div class="stat"><div class="stat-value" id="aliveStat">—</div><div class="stat-label">живых (TCP)</div></div>
+            <div class="stat"><div class="stat-value" id="timeStat">—</div><div class="stat-label">последний запуск</div></div>
         </div>
-        <div class="card-desc">⚙️ Сейчас быстрая проверка (TCP). Точная проверка (VPS) скоро.</div>
+        <div class="card-desc">⚙️ Сейчас быстрая проверка. Точная (VPS) скоро.</div>
     </div>
 
-    <!-- Карточка инструкции -->
+    <!-- гайды (сворачиваемые) -->
     <div class="card">
-        <div class="card-title">📱 Как подключиться за 10 секунд</div>
-        <div>1️⃣ Скачай <a href="https://github.com/hiddify/hiddify-next/releases" target="_blank">Hiddify</a> (Windows / Mac / Linux / Android / iOS)</div>
-        <div>2️⃣ Скопируй любую ссылку выше</div>
-        <div>3️⃣ В Hiddify: Новый профиль → Импорт из URL → вставить → Добавить</div>
-        <div>4️⃣ Нажми «Подключиться»</div>
+        <div class="card-title">📚 Гайды</div>
+        <details>
+            <summary>▶ Как подключиться на Windows / Mac</summary>
+            <div class="guide-content">
+                1. Скачай <a href="https://github.com/hiddify/hiddify-next/releases" target="_blank">Hiddify</a><br>
+                2. Скопируй ссылку выше<br>
+                3. В Hiddify: Новый профиль → Импорт из URL → вставить → Добавить<br>
+                4. Нажми «Подключиться» и выбери сервер
+            </div>
+        </details>
+        <details>
+            <summary>▶ Как подключиться на Android / iOS</summary>
+            <div class="guide-content">
+                1. Установи Hiddify из магазина приложений<br>
+                2. Скопируй ссылку<br>
+                3. Открой Hiddify → нажми «+» → Импорт из URL → вставь → Добавить<br>
+                4. Подключись
+            </div>
+        </details>
     </div>
 
     <div class="footer">
@@ -258,69 +252,17 @@
     </div>
 </div>
 
-<!-- лёгкая 3D-сфера (декор, не грузит) -->
-<script type="importmap">
-    {
-        "imports": {
-            "three": "https://unpkg.com/three@0.128.0/build/three.module.js"
-        }
-    }
-</script>
-
-<script type="module">
-    import * as THREE from 'three';
-    
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
-    camera.position.set(0, 0, 6);
-    
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 0);
-    document.body.appendChild(renderer.domElement);
-    renderer.domElement.style.position = 'fixed';
-    renderer.domElement.style.top = '0';
-    renderer.domElement.style.left = '0';
-    renderer.domElement.style.zIndex = '-1';
-    renderer.domElement.style.pointerEvents = 'none';
-    
-    // красивая вращающаяся сфера
-    const geometry = new THREE.SphereGeometry(1.2, 64, 64);
-    const material = new THREE.MeshStandardMaterial({
-        color: 0x1a4c7a,
-        emissive: 0x0a2a4a,
-        emissiveIntensity: 0.4,
-        roughness: 0.3,
-        metalness: 0.7,
-        transparent: true,
-        opacity: 0.35
-    });
-    const sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
-    
-    const ambientLight = new THREE.AmbientLight(0x224466);
-    scene.add(ambientLight);
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1);
-    dirLight.position.set(2, 3, 4);
-    scene.add(dirLight);
-    
-    function animateSphere() {
-        requestAnimationFrame(animateSphere);
-        sphere.rotation.y += 0.002;
-        sphere.rotation.x = Math.sin(Date.now() * 0.0005) * 0.1;
-        renderer.render(scene, camera);
-    }
-    animateSphere();
-    
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-</script>
+<!-- МАСКОТ (твой рисунок) - SVG вертикальный смайлик -->
+<svg class="mascot" id="mascot" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- глаза вертикально -->
+    <circle cx="50" cy="35" r="6" fill="white" />
+    <circle cx="50" cy="55" r="6" fill="white" />
+    <!-- улыбка скобка -->
+    <path d="M60 45 Q68 50 60 55" stroke="white" stroke-width="3" stroke-linecap="round" fill="none" />
+</svg>
 
 <script>
-    // --- ЖИВЫЕ ЦИФРЫ (накрутка) ---
+    // ---- ЖИВЫЕ ЦИФРЫ СТАТИСТИКИ ----
     async function loadStats() {
         try {
             const res = await fetch('stats.json');
@@ -352,40 +294,70 @@
         requestAnimationFrame(update);
     }
     
-    // --- Копирование + зелёная вспышка + рука-галочка (один раз) ---
-    let handShown = false;
-    
+    // ---- КОПИРОВАНИЕ ----
     function copyToClipboard(text, buttonElement) {
         navigator.clipboard.writeText(text).then(() => {
-            // зелёная вспышка
             const originalText = buttonElement.innerHTML;
-            buttonElement.classList.add('copy-success');
             buttonElement.innerHTML = '✅ Скопировано!';
-            setTimeout(() => {
-                buttonElement.classList.remove('copy-success');
-                buttonElement.innerHTML = originalText;
-            }, 1000);
-            
-            // рука-галочка — только один раз
-            if (!handShown) {
-                handShown = true;
-                const handDiv = document.createElement('div');
-                handDiv.className = 'hand-overlay';
-                handDiv.innerHTML = `<svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 6L9 17L4 12" stroke="#00e676" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="18" cy="8" r="4" fill="#00e676" stroke="none"/></svg>`;
-                document.body.appendChild(handDiv);
-                setTimeout(() => handDiv.remove(), 1200);
-            }
+            setTimeout(() => buttonElement.innerHTML = originalText, 1500);
+            // реакция маскота: подмигивание
+            winkMascot();
         }).catch(() => {
-            // тряска карточки при ошибке
-            const card = buttonElement.closest('.card');
-            if (card) card.classList.add('shake-card');
-            setTimeout(() => card.classList.remove('shake-card'), 500);
             buttonElement.innerHTML = '❌ Ошибка';
             setTimeout(() => buttonElement.innerHTML = '📋 Копировать', 1000);
         });
     }
     
-    // навешиваем обработчики
+    // подмигивание (верхний глаз)
+    function winkMascot() {
+        const topEye = document.querySelector('.mascot circle:first-child');
+        if (!topEye) return;
+        topEye.setAttribute('ry', '2');
+        topEye.setAttribute('rx', '6');
+        setTimeout(() => {
+            topEye.setAttribute('ry', '6');
+            topEye.setAttribute('rx', '6');
+        }, 200);
+    }
+    
+    // показываем подсказку от маскота
+    function showTip(message) {
+        let tip = document.querySelector('.mascot-tip');
+        if (tip) tip.remove();
+        tip = document.createElement('div');
+        tip.className = 'mascot-tip';
+        tip.innerText = message;
+        document.body.appendChild(tip);
+        setTimeout(() => tip.remove(), 3000);
+    }
+    
+    // ---- ПАСХАЛКА: 5 кликов по маскоту ----
+    let clickCount = 0;
+    document.getElementById('mascot').addEventListener('click', () => {
+        clickCount++;
+        if (clickCount === 5) {
+            showTip('🎁 Секретная ссылка: https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/protocol-vless.txt');
+            clickCount = 0;
+        } else {
+            showTip('😉 Ещё немного...');
+        }
+        setTimeout(() => { clickCount = 0; }, 5000);
+    });
+    
+    // ---- МАСКОТ НАПОМИНАЕТ, ЕСЛИ ДОЛГО НЕ КОПИРУЮТ ----
+    let lastCopyTime = Date.now();
+    const copyBtns = document.querySelectorAll('button[id^="copy"]');
+    copyBtns.forEach(btn => {
+        btn.addEventListener('click', () => { lastCopyTime = Date.now(); });
+    });
+    setInterval(() => {
+        if (Date.now() - lastCopyTime > 30000) {
+            showTip('👀 Ну что, копируй ссылку?');
+            lastCopyTime = Date.now(); // чтобы не спамить
+        }
+    }, 35000);
+    
+    // ---- НАВЕШИВАЕМ КОПИРОВАНИЕ ----
     document.getElementById('copyMainBtn').addEventListener('click', () => {
         const url = document.getElementById('mainUrl').innerText;
         copyToClipboard(url, document.getElementById('copyMainBtn'));
@@ -399,8 +371,13 @@
         copyToClipboard(url, document.getElementById('copyWhiteBtn'));
     });
     
-    // запускаем загрузку статистики
+    // ---- ИНИЦИАЛИЗАЦИЯ ----
     loadStats();
+    
+    // приветствие маскота (только один раз)
+    setTimeout(() => {
+        showTip('🤖 Привет, я твой проводник. Копируй ссылки — я подмигну.');
+    }, 1000);
 </script>
 </body>
 </html>
