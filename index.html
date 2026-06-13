@@ -2,245 +2,436 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VPN Configs Russia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>VPN-Configs Russia | Живой хаб</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            background: #FFFFFF;
-            color: #111111;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.5;
-            padding: 2rem 1rem;
-            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            color: white;
         }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        /* стили контента (минимализм) */
-        h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-        .lead {
-            color: #444;
-            margin-bottom: 2rem;
-            border-left: 2px solid #111;
-            padding-left: 1rem;
+        /* Интерфейс поверх 3D */
+        #ui {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+            pointer-events: none;
+            z-index: 10;
+            padding: 20px;
         }
         .card {
-            background: #F5F5F5;
-            border: 1px solid #DDD;
-            border-radius: 12px;
-            padding: 1.25rem;
-            margin-bottom: 1.5rem;
+            background: rgba(20, 20, 30, 0.85);
+            backdrop-filter: blur(16px);
+            border-radius: 28px;
+            padding: 20px 28px;
+            width: 90%;
+            max-width: 550px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            pointer-events: auto;
+            text-align: center;
+        }
+        .card h2 {
+            margin: 0 0 8px 0;
+            font-size: 1.7rem;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+        }
+        .card p {
+            margin: 0 0 20px 0;
+            opacity: 0.8;
+            font-size: 0.95rem;
         }
         .url-box {
-            background: #FFF;
-            border: 1px solid #CCC;
-            padding: 0.75rem;
+            background: #000000aa;
+            border-radius: 60px;
+            padding: 12px 18px;
             font-family: monospace;
             font-size: 0.8rem;
             word-break: break-all;
-            margin: 0.75rem 0;
+            margin-bottom: 18px;
+            border: 1px solid rgba(255,255,255,0.2);
         }
-        button {
-            background: #111;
-            color: #FFF;
-            border: none;
-            border-radius: 40px;
-            padding: 0.5rem 1rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #333;
-        }
-        .flex-row {
+        .btn-group {
             display: flex;
-            gap: 0.75rem;
-            align-items: center;
+            gap: 12px;
+            justify-content: center;
             flex-wrap: wrap;
         }
-        .stats-grid {
-            display: flex;
-            gap: 1rem;
-            margin: 1rem 0;
-        }
-        .stat {
-            background: #F5F5F5;
-            padding: 0.75rem;
-            border-radius: 12px;
-            text-align: center;
-            flex: 1;
-        }
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        /* ----- СМАЙЛИК (живой, эксклюзив) ----- */
-        .mascot {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 80px;
-            height: 80px;
+        button {
+            background: white;
+            color: black;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
             cursor: pointer;
-            z-index: 1000;
-            opacity: 0.9;
-            animation: breathe 6s ease-in-out infinite;
+            transition: 0.2s;
+            font-family: inherit;
         }
-
-        .eye {
-            fill: #111;
-            transition: all 0.2s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        button:hover {
+            transform: scale(1.02);
+            background: #e0e0e0;
         }
-
-        /* Анимация поворота при загрузке */
-        .mascot.rotate-in {
-            animation: rotateIn 0.8s ease-out, breathe 6s ease-in-out infinite 0.8s;
+        button.outline {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
         }
-
-        @keyframes rotateIn {
-            0% { transform: rotate(90deg) scale(0.8); opacity: 0; }
-            100% { transform: rotate(0deg) scale(1); opacity: 0.9; }
+        button.outline:hover {
+            background: rgba(255,255,255,0.1);
         }
-
-        @keyframes breathe {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
+        .status-badge {
+            display: inline-block;
+            background: #00e67622;
+            border: 1px solid #00e676;
+            border-radius: 60px;
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            margin-bottom: 12px;
+            color: #00e676;
         }
-
         @media (max-width: 600px) {
-            .mascot { width: 60px; height: 60px; bottom: 10px; right: 10px; }
+            .card { padding: 16px; }
+            .card h2 { font-size: 1.3rem; }
+            button { padding: 8px 16px; font-size: 0.8rem; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>VPN Configs<br>Russia</h1>
-    <div class="lead">
-        Белый фон, чёрный смайлик. Рабочие конфиги. Без регистрации.
-    </div>
+    <!-- UI Слой -->
+    <div id="ui">
+        <div class="card" id="welcomeCard">
+            <div class="status-badge" id="statusBadge">🔷 СИСТЕМА АКТИВНА</div>
+            <h2>⚡ VPN-Configs Russia</h2>
+            <p>Я — твой проводник. Выбери протокол, и я дам лучший конфиг.</p>
+            <div class="btn-group">
+                <button id="vlessBtn">📡 VLESS + Reality</button>
+                <button id="mtprotoBtn" class="outline">📱 MTProto (Mobile)</button>
+            </div>
+        </div>
 
-    <!-- ГЛАВНАЯ КАРТОЧКА -->
-    <div class="card">
-        <div class="card-title">📌 Универсальная подписка</div>
-        <div class="card-desc">Для Hiddify, v2rayN, NekoBox. 200+ живых серверов.</div>
-        <div class="url-box">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/alive.txt</div>
-        <div class="flex-row">
-            <button class="copy-btn" data-url="https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/alive.txt">
-                📋 Скопировать ссылку
-            </button>
+        <div class="card" id="resultCard" style="display: none;">
+            <div class="status-badge" id="resultBadge">✅ КОНФИГ ГОТОВ</div>
+            <h2 id="configTitle">VLESS Config</h2>
+            <div class="url-box" id="configUrl">https://raw.githubusercontent.com/...</div>
+            <div class="btn-group">
+                <button id="copyBtn">📋 Скопировать ссылку</button>
+                <button id="backBtn" class="outline">◀ Назад</button>
+            </div>
         </div>
     </div>
 
-    <!-- ЗАПАСНЫЕ ВАРИАНТЫ -->
-    <div class="card">
-        <div class="card-title">🔄 Запасные варианты</div>
-        <div style="margin-bottom: 0.8rem;">
-            <div class="url-box" style="font-size:0.75rem;">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/mobile.txt</div>
-            <button class="copy-btn" data-url="https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/mobile.txt">📱 Мобильный</button>
-        </div>
-        <div>
-            <div class="url-box" style="font-size:0.75rem;">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/white-sni.txt</div>
-            <button class="copy-btn" data-url="https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/white-sni.txt">📋 Белые списки (SNI)</button>
-        </div>
-    </div>
-
-    <!-- ИНСТРУКЦИЯ -->
-    <div class="card">
-        <div class="card-title">📱 Как подключиться за 10 секунд</div>
-        <div>1️⃣ Скачай Hiddify (Windows/Android/iOS)</div>
-        <div>2️⃣ Скопируй ссылку выше</div>
-        <div>3️⃣ В Hiddify: Новый профиль → Импорт из URL → вставить ссылку</div>
-        <div>4️⃣ Нажми «Подключиться»</div>
-    </div>
-
-    <div class="footer" style="text-align:center; margin-top:2rem; color:#666;">
-        ⚡ Обновление каждые 2 часа · GitHub Actions · <a href="https://github.com/Stintik-123/vpn-configs-russia">GitHub</a>
-    </div>
-</div>
-
-<!-- ===== ЖИВОЙ СМАЙЛИК (SVG) ===== -->
-<svg class="mascot rotate-in" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <!-- глаза (круги, расположены вертикально) -->
-    <circle class="eye" cx="50" cy="35" r="5" fill="black" />
-    <circle class="eye" cx="50" cy="55" r="5" fill="black" />
-    <!-- улыбка: дуга в форме скобки (справа) -->
-    <path d="M62 42 Q68 45 62 48" stroke="black" stroke-width="3" stroke-linecap="round" fill="none" />
-</svg>
-
-<script>
-    (function() {
-        // 1. Анимация при загрузке (rotate-in) уже встроена в класс
-
-        // 2. Подмигивание при копировании (верхний глаз)
-        const mascotSvg = document.querySelector('.mascot');
-        const topEye = document.querySelector('.eye:first-child');
-        
-        function wink() {
-            if (!topEye) return;
-            const originalR = topEye.getAttribute('r');
-            // Превращаем круг в горизонтальную линию (имитация закрытого глаза)
-            topEye.setAttribute('ry', '1');
-            topEye.setAttribute('rx', '4');
-            setTimeout(() => {
-                topEye.setAttribute('r', originalR);
-                topEye.removeAttribute('ry');
-                topEye.removeAttribute('rx');
-            }, 250);
+    <!-- Подключаем Three.js и доп. библиотеки -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
         }
+    </script>
 
-        // Навешиваем подмигивание на все кнопки копирования
-        const copyBtns = document.querySelectorAll('.copy-btn');
-        copyBtns.forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                const url = this.getAttribute('data-url');
-                if (url) {
-                    navigator.clipboard.writeText(url).catch(() => {});
-                    wink(); // анимация
-                    // меняем текст кнопки на секунду
-                    const originalText = this.innerHTML;
-                    this.innerHTML = '✅ Скопировано!';
-                    setTimeout(() => { this.innerHTML = originalText; }, 1000);
-                }
-            });
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+
+        // --- Инициализация сцены ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x050b1a);
+        scene.fog = new THREE.FogExp2(0x050b1a, 0.008);
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 1.2, 4.5);
+        camera.lookAt(0, 0.8, 0);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true; // тени для объёма
+        renderer.setPixelRatio(window.devicePixelRatio);
+        document.body.appendChild(renderer.domElement);
+
+        // CSS2 рендер для текста (всегда поверх)
+        const labelRenderer = new CSS2DRenderer();
+        labelRenderer.setSize(window.innerWidth, window.innerHeight);
+        labelRenderer.domElement.style.position = 'absolute';
+        labelRenderer.domElement.style.top = '0px';
+        labelRenderer.domElement.style.left = '0px';
+        labelRenderer.domElement.style.pointerEvents = 'none';
+        document.body.appendChild(labelRenderer.domElement);
+
+        // --- Освещение (мощное и атмосферное) ---
+        // ambient
+        const ambientLight = new THREE.AmbientLight(0x222222);
+        scene.add(ambientLight);
+        // основной свет
+        const mainLight = new THREE.DirectionalLight(0xffffff, 1);
+        mainLight.position.set(2, 5, 3);
+        mainLight.castShadow = true;
+        mainLight.receiveShadow = false;
+        scene.add(mainLight);
+        // контровой свет (подсветка сзади)
+        const backLight = new THREE.PointLight(0x2266ff, 0.5);
+        backLight.position.set(-1, 1.5, -2);
+        scene.add(backLight);
+        // заполняющий тёплый свет снизу
+        const fillLight = new THREE.PointLight(0xffaa66, 0.3);
+        fillLight.position.set(0, -1, 1);
+        scene.add(fillLight);
+        
+        // эффект "туманного свечения" - простая сфера с эмиссией
+        const glowMat = new THREE.MeshStandardMaterial({ color: 0x113355, emissive: 0x113355, emissiveIntensity: 0.4, transparent: true, opacity: 0.3 });
+        const glowSphere = new THREE.Mesh(new THREE.SphereGeometry(1.2, 16, 16), glowMat);
+        glowSphere.position.set(0, 0.6, 0);
+        scene.add(glowSphere);
+        
+        // --- 3D МАСКОТ (твой рисунок в 3D) ---
+        const mascotGroup = new THREE.Group();
+        
+        // Глаза (две чёрные сферы, расположенные вертикально)
+        const eyeMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.2, metalness: 0.8 });
+        const eyeUpper = new THREE.Mesh(new THREE.SphereGeometry(0.18, 32, 32), eyeMat);
+        eyeUpper.position.set(0, 0.35, 0.45);
+        const eyeLower = new THREE.Mesh(new THREE.SphereGeometry(0.18, 32, 32), eyeMat);
+        eyeLower.position.set(0, 0.05, 0.45);
+        mascotGroup.add(eyeUpper);
+        mascotGroup.add(eyeLower);
+        
+        // Улыбка (изогнутый тор, как скобка)
+        const smileCurve = new THREE.TorusGeometry(0.28, 0.05, 32, 64, Math.PI);
+        const smileMat = new THREE.MeshStandardMaterial({ color: 0x111111 });
+        const smile = new THREE.Mesh(smileCurve, smileMat);
+        smile.rotation.z = -0.2;
+        smile.rotation.x = 0.2;
+        smile.position.set(0.45, 0.2, 0.45);
+        mascotGroup.add(smile);
+        
+        // маленькие брови (для эмоций) — отдельные элементы
+        const browMat = new THREE.MeshStandardMaterial({ color: 0x111111 });
+        const leftBrow = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.04, 0.08), browMat);
+        leftBrow.position.set(-0.18, 0.52, 0.5);
+        const rightBrow = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.04, 0.08), browMat);
+        rightBrow.position.set(0.18, 0.52, 0.5);
+        mascotGroup.add(leftBrow);
+        mascotGroup.add(rightBrow);
+        
+        // Подставка / тело (полусфера, чтобы не висел в воздухе)
+        const bodyMat = new THREE.MeshStandardMaterial({ color: 0x1a1a2e, roughness: 0.4, metalness: 0.1 });
+        const body = new THREE.Mesh(new THREE.SphereGeometry(0.45, 32, 32, 0, Math.PI * 2, 0, Math.PI / 2), bodyMat);
+        body.position.y = -0.25;
+        body.scale.set(1, 0.5, 0.9);
+        mascotGroup.add(body);
+        
+        mascotGroup.position.set(0, 0.25, 0);
+        scene.add(mascotGroup);
+        
+        // --- Анимируемые части (для эмоций) ---
+        const originalSmileRot = smile.rotation.clone();
+        const originalBrowPos = [leftBrow.position.clone(), rightBrow.position.clone()];
+        
+        // --- CSS2D текст (облачко) ---
+        const speechDiv = document.createElement('div');
+        speechDiv.style.backgroundColor = 'rgba(0,0,0,0.7)';
+        speechDiv.style.color = '#00e676';
+        speechDiv.style.padding = '10px 18px';
+        speechDiv.style.borderRadius = '40px';
+        speechDiv.style.fontSize = '0.9rem';
+        speechDiv.style.fontWeight = '500';
+        speechDiv.style.backdropFilter = 'blur(8px)';
+        speechDiv.style.border = '1px solid #00e676';
+        speechDiv.style.whiteSpace = 'nowrap';
+        speechDiv.style.fontFamily = 'monospace';
+        speechDiv.textContent = '🔷 Выбери протокол...';
+        
+        const speechBubble = new CSS2DObject(speechDiv);
+        speechBubble.position.set(0, 1.1, 0);
+        mascotGroup.add(speechBubble);
+        
+        // --- Пол / тень (для реализма) ---
+        const planeMat = new THREE.ShadowMaterial({ opacity: 0.4, color: 0x000000, transparent: true, side: THREE.DoubleSide });
+        const shadowPlane = new THREE.Mesh(new THREE.PlaneGeometry(3.5, 2.5), planeMat);
+        shadowPlane.rotation.x = -Math.PI / 2;
+        shadowPlane.position.y = -0.45;
+        shadowPlane.receiveShadow = true;
+        scene.add(shadowPlane);
+        
+        // --- Вспомогательные элементы (звёздочки, частицы для "жизни") ---
+        const particleGeo = new THREE.BufferGeometry();
+        const particleCount = 400;
+        const particlePositions = new Float32Array(particleCount * 3);
+        for (let i = 0; i < particleCount; i++) {
+            particlePositions[i*3] = (Math.random() - 0.5) * 30;
+            particlePositions[i*3+1] = (Math.random() - 0.5) * 8 + 1;
+            particlePositions[i*3+2] = (Math.random() - 0.5) * 15 - 8;
+        }
+        particleGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+        const particleMat = new THREE.PointsMaterial({ color: 0x88aaff, size: 0.04, transparent: true, opacity: 0.5 });
+        const particles = new THREE.Points(particleGeo, particleMat);
+        scene.add(particles);
+        
+        // --- Управление мышью (лёгкое вращение камеры) ---
+        let targetRotationY = 0;
+        let currentRotationY = 0;
+        document.addEventListener('mousemove', (event) => {
+            targetRotationY = (event.clientX / window.innerWidth - 0.5) * 0.8;
         });
-
-        // 3. Дополнительный эффект: если 20 секунд бездействия — смайлик зевает (чуть шире улыбка)
-        let idleTimer;
-        const smile = document.querySelector('.mascot path');
-        const originalSmile = smile?.getAttribute('d');
         
-        function yawn() {
-            if (!smile) return;
-            smile.setAttribute('d', 'M60 40 Q70 48 62 52');
-            setTimeout(() => {
-                if (originalSmile) smile.setAttribute('d', originalSmile);
-            }, 800);
+        // --- Логика UI и реакций маскота ---
+        const welcomeCard = document.getElementById('welcomeCard');
+        const resultCard = document.getElementById('resultCard');
+        const configUrlSpan = document.getElementById('configUrl');
+        const configTitle = document.getElementById('configTitle');
+        const resultBadge = document.getElementById('resultBadge');
+        const statusBadge = document.getElementById('statusBadge');
+        
+        let currentProtocol = 'vless';
+        
+        // конфиги
+        const configs = {
+            vless: {
+                title: 'VLESS + Reality Config',
+                url: 'https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/protocol-vless.txt',
+                badge: '✅ VLESS (быстрый, скрытый)'
+            },
+            mtproto: {
+                title: 'MTProto Mobile Config',
+                url: 'https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/mobile.txt',
+                badge: '📱 MTProto (Telegram / Mobile)'
+            }
+        };
+        
+        // Эмоции маскота
+        function setEmotion(type) {
+            // сброс
+            smile.rotation.z = originalSmileRot.z;
+            smile.rotation.x = originalSmileRot.x;
+            leftBrow.position.y = originalBrowPos[0].y;
+            rightBrow.position.y = originalBrowPos[1].y;
+            leftBrow.position.x = originalBrowPos[0].x;
+            rightBrow.position.x = originalBrowPos[1].x;
+            
+            if (type === 'happy') {
+                smile.rotation.z = -0.4;
+                leftBrow.position.y = 0.56;
+                rightBrow.position.y = 0.56;
+                speechDiv.textContent = '🎉 Отлично! Ссылка скопирована!';
+                setTimeout(() => { if (speechDiv.textContent === '🎉 Отлично! Ссылка скопирована!') speechDiv.textContent = '✅ Готов помочь ещё'; }, 2000);
+            } else if (type === 'sad') {
+                smile.rotation.x = -0.2;
+                smile.rotation.z = 0.1;
+                leftBrow.position.y = 0.48;
+                rightBrow.position.y = 0.48;
+                speechDiv.textContent = '😐 Обнови страницу, если конфиг не работает...';
+            } else if (type === 'wink') {
+                eyeUpper.scale.set(1, 0.1, 1);
+                setTimeout(() => eyeUpper.scale.set(1, 1, 1), 200);
+                speechDiv.textContent = '🔷 Копируй и вставляй!';
+                setTimeout(() => { if (speechDiv.textContent === '🔷 Копируй и вставляй!') speechDiv.textContent = '✅ Выбери протокол'; }, 1500);
+            }
         }
         
+        // Показать конфиг
+        window.showConfig = (type) => {
+            currentProtocol = type;
+            const cfg = configs[type];
+            configTitle.innerText = cfg.title;
+            configUrlSpan.innerText = cfg.url;
+            resultBadge.innerText = cfg.badge;
+            welcomeCard.style.display = 'none';
+            resultCard.style.display = 'flex';
+            statusBadge.innerText = `🟢 АКТИВЕН: ${type.toUpperCase()}`;
+            setEmotion('happy');
+            speechDiv.textContent = `📡 ${cfg.title} готов! Нажми "Скопировать".`;
+        };
+        
+        window.goBack = () => {
+            welcomeCard.style.display = 'flex';
+            resultCard.style.display = 'none';
+            statusBadge.innerText = '🔷 СИСТЕМА АКТИВНА';
+            speechDiv.textContent = '🔷 Выбери протокол...';
+        };
+        
+        window.copyConfig = () => {
+            const url = configUrlSpan.innerText;
+            navigator.clipboard.writeText(url);
+            setEmotion('wink');
+        };
+        
+        document.getElementById('vlessBtn').onclick = () => showConfig('vless');
+        document.getElementById('mtprotoBtn').onclick = () => showConfig('mtproto');
+        document.getElementById('copyBtn').onclick = () => copyConfig();
+        document.getElementById('backBtn').onclick = () => goBack();
+        
+        // Анимация "скучает" если долго нет действий
+        let idleTimer;
         function resetIdleTimer() {
             clearTimeout(idleTimer);
-            idleTimer = setTimeout(yawn, 20000);
+            idleTimer = setTimeout(() => {
+                if (welcomeCard.style.display !== 'none') {
+                    speechDiv.textContent = '🤖 Скучаю... выбери протокол!';
+                    setEmotion('sad');
+                    setTimeout(() => {
+                        if (speechDiv.textContent === '🤖 Скучаю... выбери протокол!')
+                            speechDiv.textContent = '🔷 Я здесь, чтобы помочь';
+                    }, 3000);
+                } else {
+                    speechDiv.textContent = '👀 Не забудь скопировать ссылку!';
+                }
+            }, 25000);
         }
-        
         document.addEventListener('mousemove', resetIdleTimer);
         document.addEventListener('click', resetIdleTimer);
         resetIdleTimer();
-    })();
-</script>
+        
+        // --- Анимация сцены и маскота "дыхание" ---
+        let time = 0;
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.012;
+            
+            // плавное покачивание маскота
+            mascotGroup.position.y = 0.25 + Math.sin(time * 2.5) * 0.005;
+            mascotGroup.rotation.z = Math.sin(time * 1.2) * 0.02;
+            
+            // вращение камеры от мыши
+            currentRotationY += (targetRotationY - currentRotationY) * 0.05;
+            camera.position.x += (currentRotationY * 1.2 - camera.position.x) * 0.05;
+            camera.lookAt(0, 0.7, 0);
+            
+            // плавное вращение частиц
+            particles.rotation.y += 0.001;
+            particles.rotation.x = Math.sin(time * 0.2) * 0.1;
+            
+            // обновление рендеров
+            renderer.render(scene, camera);
+            labelRenderer.render(scene, camera);
+        }
+        
+        animate();
+        
+        // обработка ресайза
+        window.addEventListener('resize', onWindowResize, false);
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            labelRenderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+        // маленький фикс: изначально показываем приветствие
+        console.log('✅ 3D Маскот-проводник активен');
+    </script>
 </body>
 </html>
