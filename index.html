@@ -2,438 +2,364 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>VPN Configs Russia | Snoo-проводник</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPN Configs · чистота и порядок</title>
     <style>
+        /* —————————— СБРОС И БАЗА —————————— */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
         }
-
         body {
-            background: #000000;
-            color: #eeeeee;
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
-            line-height: 1.4;
-            overflow-x: hidden;
-        }
-
-        /* ---------- ЗАГРУЗКА (рамка + фото + текст) ---------- */
-        .preloader {
-            position: fixed;
-            inset: 0;
-            background: black;
-            z-index: 10000;
+            background-color: #0A0A0A;
+            color: #E8E8E8;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            padding: 40px 24px;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: opacity 1s ease, visibility 1s ease;
         }
-        .preloader.hide {
-            opacity: 0;
-            visibility: hidden;
-        }
-        .frame {
-            width: 140px;
-            height: 140px;
-            border: 2px solid white;
-            border-radius: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: black;
-        }
-        .frame img {
-            max-width: 85%;
-            max-height: 85%;
-            display: block;
-        }
-        .loading-text {
-            margin-top: 32px;
-            font-size: 0.95rem;
-            font-weight: 400;
-            color: #ccc;
-            text-align: center;
-            padding: 0 24px;
-            opacity: 0;
-            transition: opacity 1.4s ease;
-            font-family: monospace;
-            max-width: 280px;
-        }
-        .loading-text.show {
-            opacity: 1;
-        }
-
-        /* ---------- ОСНОВНОЙ САЙТ ---------- */
-        .main-content {
-            max-width: 1000px;
+        /* —————————— КОНТЕЙНЕР —————————— */
+        .container {
+            max-width: 720px;
+            width: 100%;
             margin: 0 auto;
-            padding: 20px 20px 100px 20px;
-            opacity: 0;
-            transition: opacity 0.6s ease;
         }
-        .main-content.visible {
-            opacity: 1;
+        /* —————————— ШАПКА —————————— */
+        header {
+            margin-bottom: 48px;
+            text-align: left;
         }
-
         h1 {
-            font-size: 2.2rem;
+            font-size: 2.6rem;
             font-weight: 700;
             letter-spacing: -0.02em;
+            color: #FFFFFF;
+            margin-bottom: 8px;
         }
-        .sub {
+        .subhead {
+            font-size: 1.05rem;
+            color: #888;
+            border-left: 2px solid #fff;
+            padding-left: 16px;
+            margin-top: 4px;
+        }
+        .status-badge {
+            display: inline-block;
+            background: #1A1A1A;
             color: #aaa;
-            margin: 0.5rem 0 1.5rem 0;
-            border-left: 2px solid white;
-            padding-left: 1rem;
-        }
-
-        .card {
-            background: #0c0c0c;
-            border: 1px solid #222;
-            border-radius: 28px;
-            padding: 1.4rem;
-            margin-bottom: 1.5rem;
-        }
-        .url-box {
-            background: black;
-            border: 1px solid #2a2a2a;
-            border-radius: 60px;
-            padding: 0.7rem 1rem;
-            font-family: monospace;
             font-size: 0.7rem;
-            word-break: break-all;
-            margin: 0.75rem 0;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 40px;
+            margin-bottom: 16px;
+            border: 1px solid #2A2A2A;
+            letter-spacing: 0.3px;
         }
-        button {
-            background: white;
-            color: black;
+        .status-badge span {
+            color: #fff;
+        }
+        /* —————————— КАРТОЧКИ —————————— */
+        .card {
+            background: #141414;
+            border: 1px solid #2A2A2A;
+            border-radius: 24px;
+            padding: 28px 32px;
+            margin-bottom: 24px;
+            transition: border-color 0.2s ease;
+        }
+        .card:hover {
+            border-color: #3A3A3A;
+        }
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+        }
+        .card-desc {
+            font-size: 0.9rem;
+            color: #999;
+            margin-bottom: 16px;
+        }
+        /* —————————— КНОПКИ И ССЫЛКИ —————————— */
+        .url-box {
+            background: #0A0A0A;
+            border: 1px solid #2A2A2A;
+            border-radius: 60px;
+            padding: 12px 20px;
+            font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+            font-size: 0.75rem;
+            word-break: break-all;
+            color: #ccc;
+            margin: 12px 0 16px 0;
+            transition: border-color 0.2s;
+        }
+        .url-box:hover {
+            border-color: #444;
+        }
+        .btn {
+            display: inline-block;
+            background: #FFFFFF;
+            color: #0A0A0A;
             border: none;
-            padding: 0.5rem 1.2rem;
+            padding: 10px 24px;
             border-radius: 60px;
             font-weight: 600;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: 0.1s linear;
+            transition: all 0.15s ease;
+            letter-spacing: 0.2px;
         }
-        button:hover {
-            background: #ddd;
-            transform: scale(0.97);
+        .btn:hover {
+            background: #DDDDDD;
         }
-        .flex-row {
+        .btn-secondary {
+            background: transparent;
+            color: #aaa;
+            border: 1px solid #2A2A2A;
+            padding: 8px 20px;
+            font-weight: 400;
+        }
+        .btn-secondary:hover {
+            border-color: #555;
+            color: #fff;
+        }
+        .flex {
             display: flex;
-            gap: 0.8rem;
             flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+        .flex-between {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
             align-items: center;
             justify-content: space-between;
         }
+        /* —————————— СТАТИСТИКА —————————— */
         .stats-grid {
             display: flex;
-            gap: 1rem;
-            margin: 1rem 0;
             flex-wrap: wrap;
+            gap: 12px;
+            margin: 16px 0 4px 0;
         }
-        .stat {
-            background: #0a0a0a;
+        .stat-item {
+            background: #0A0A0A;
             border: 1px solid #222;
-            border-radius: 24px;
-            padding: 0.6rem;
-            text-align: center;
-            flex: 1;
-        }
-        .stat-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        /* ----- МЕНЮ (телефон снизу / комп горизонтально) ----- */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid #222;
-            display: flex;
-            justify-content: space-around;
-            padding: 8px 12px 22px;
-            z-index: 1000;
-        }
-        .nav-item {
-            background: none;
-            border: none;
+            border-radius: 40px;
+            padding: 6px 18px 6px 18px;
+            font-size: 0.75rem;
             color: #aaa;
-            font-size: 0.7rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            cursor: pointer;
-        }
-        .nav-item.active {
-            color: white;
-        }
-        .nav-item i {
-            font-size: 1.4rem;
-        }
-        @media (min-width: 700px) {
-            .bottom-nav {
-                top: 20px;
-                bottom: auto;
-                right: auto;
-                left: auto;
-                width: fit-content;
-                margin: 0 auto;
-                background: rgba(0,0,0,0.6);
-                border-radius: 60px;
-                padding: 8px 24px;
-                gap: 2rem;
-            }
-            .main-content {
-                padding-bottom: 40px;
-            }
-        }
-
-        /* ----- СТРАНИЦЫ (без перезагрузки) ----- */
-        .page {
-            display: none;
-            animation: fade 0.2s ease;
-        }
-        .page.active-page {
-            display: block;
-        }
-        @keyframes fade {
-            from { opacity: 0; transform: translateY(6px);}
-            to { opacity: 1; transform: translateY(0);}
-        }
-
-        /* ----- ПРОВОДНИК (Snoo) ----- */
-        .guide-snoo {
-            position: fixed;
-            bottom: 85px;
-            left: 12px;
-            background: rgba(10,10,10,0.9);
-            backdrop-filter: blur(8px);
-            border-radius: 50px;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 6px 12px 6px 6px;
-            border: 1px solid #333;
-            z-index: 1001;
-            transition: 0.1s;
-            max-width: 280px;
-            pointer-events: auto;
-            cursor: pointer;
         }
-        .guide-snoo img {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            background: white;
-            object-fit: cover;
+        .stat-item strong {
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
         }
-        .guide-text {
-            font-size: 0.7rem;
-            color: #eee;
+        .stat-item .num {
+            font-family: 'SF Mono', 'Menlo', monospace;
+            color: #fff;
             font-weight: 500;
         }
-        @media (min-width: 700px) {
-            .guide-snoo { bottom: 30px; left: 30px; }
-        }
-
+        /* —————————— ФУТЕР —————————— */
         footer {
-            text-align: center;
-            font-size: 0.65rem;
-            color: #333;
-            margin-top: 2rem;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid #1A1A1A;
+            font-size: 0.75rem;
+            color: #444;
+            text-align: left;
         }
-        a {
-            color: #ccc;
+        footer a {
+            color: #888;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        footer a:hover {
+            border-bottom-color: #888;
+        }
+        /* —————————— АДАПТИВ —————————— */
+        @media (max-width: 600px) {
+            body { padding: 24px 16px; }
+            .card { padding: 20px; }
+            h1 { font-size: 2rem; }
+            .subhead { font-size: 0.9rem; padding-left: 12px; }
+            .flex-between { flex-direction: column; align-items: stretch; }
+            .stat-item { font-size: 0.7rem; padding: 4px 14px; }
+            .url-box { font-size: 0.65rem; padding: 10px 16px; }
         }
     </style>
 </head>
 <body>
+<div class="container">
 
-<!-- ЭКСКЛЮЗИВНАЯ ЗАГРУЗКА -->
-<div class="preloader" id="preloader">
-    <div class="frame">
-        <img src="https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/files/IMG_20260612_200129_922.jpg" alt="logo" onerror="this.src='https://placehold.co/100x100?text=VPN'">
-    </div>
-    <div class="loading-text" id="loadingText">VPN configs Russia — интернет свобода ближе чем кажется</div>
-</div>
+    <header>
+        <div class="status-badge">● <span>СИСТЕМА АКТИВНА</span> · обновление каждые 2 часа</div>
+        <h1>VPN Configs</h1>
+        <div class="subhead">конфиги, которые просто работают</div>
+    </header>
 
-<!-- ОСНОВНОЙ КОНТЕНТ -->
-<div class="main-content" id="mainContent">
-    <div class="header">
-        <h1>VPN Configs<br>Russia</h1>
-        <div class="sub">чёрный. белый. без цензуры.</div>
-    </div>
-
-    <!-- СТРАНИЦЫ -->
-    <div id="homePage" class="page active-page">
-        <div class="card">
-            <div style="font-weight: 700;">⚡ Универсальная подписка</div>
-            <div class="url-box" id="mainUrl">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/alive.txt</div>
-            <div class="flex-row"><button id="copyMainBtn">📋 Скопировать ссылку</button><span style="color:#888;">✅ TCP живой</span></div>
+    <!-- ————————— ГЛАВНАЯ КАРТОЧКА ————————— -->
+    <div class="card">
+        <div class="card-title">⚡ Универсальная подписка</div>
+        <div class="card-desc">Для Hiddify, v2rayN, NekoBox, Streisand. Подходит для всех устройств.</div>
+        <div class="url-box" id="mainUrl">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/alive.txt</div>
+        <div class="flex-between">
+            <button class="btn" id="copyMainBtn">Копировать ссылку</button>
+            <span style="font-size: 0.7rem; color: #555;">проверка TCP · 200+ конфигов</span>
         </div>
-        <div class="card">
-            <div style="font-weight: 700;">🔄 Запасные протоколы</div>
-            <div class="url-box" id="mobileUrl">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/mobile.txt</div>
-            <button id="copyMobileBtn">📱 Мобильный</button>
-            <div class="url-box" style="margin-top:12px;" id="whiteUrl">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/white-sni.txt</div>
-            <button id="copyWhiteBtn">📋 Белые списки (SNI)</button>
+    </div>
+
+    <!-- ————————— ДОПОЛНИТЕЛЬНЫЕ ПОДПИСКИ ————————— -->
+    <div class="card">
+        <div class="card-title">📱 Альтернативные протоколы</div>
+        <div class="card-desc">Не подходит основной список? Попробуйте эти варианты.</div>
+
+        <div style="margin-bottom: 16px;">
+            <div style="font-size: 0.8rem; color: #aaa; margin-bottom: 4px;">Для телефонов и слабых устройств</div>
+            <div class="url-box" style="font-size: 0.65rem;" id="mobileUrl">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/mobile.txt</div>
+            <button class="btn btn-secondary" id="copyMobileBtn">Копировать</button>
         </div>
-        <div class="card">
-            <div style="font-weight: 700;">📊 Статус системы</div>
-            <div class="stats-grid" id="statsBlock">
-                <div class="stat"><div class="stat-value" id="totalStat">—</div><div class="stat-label">собрано</div></div>
-                <div class="stat"><div class="stat-value" id="aliveStat">—</div><div class="stat-label">живых (TCP)</div></div>
-                <div class="stat"><div class="stat-value" id="timeStat">—</div><div class="stat-label">последний запуск</div></div>
+
+        <div>
+            <div style="font-size: 0.8rem; color: #aaa; margin-bottom: 4px;">Для обхода DPI / белые списки</div>
+            <div class="url-box" style="font-size: 0.65rem;" id="whiteUrl">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/white-sni.txt</div>
+            <button class="btn btn-secondary" id="copyWhiteBtn">Копировать</button>
+        </div>
+
+        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #1A1A1A;">
+            <div style="font-size: 0.8rem; color: #aaa; margin-bottom: 4px;">По протоколам (для продвинутых)</div>
+            <div class="flex" style="gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-secondary" id="copyVlessBtn">VLESS</button>
+                <button class="btn btn-secondary" id="copyVmessBtn">VMess</button>
+                <button class="btn btn-secondary" id="copyTrojanBtn">Trojan</button>
+                <button class="btn btn-secondary" id="copySsBtn">Shadowsocks</button>
             </div>
         </div>
     </div>
 
-    <div id="guidesPage" class="page">
-        <div class="card"><div style="font-weight: 700;">📘 Windows / Mac</div><div style="font-size:0.8rem; margin-top:8px;">1. Скачай <a href="https://github.com/hiddify/hiddify-next/releases" target="_blank">Hiddify</a><br>2. Скопируй ссылку → Новый профиль → Импорт из URL<br>3. Подключиться</div></div>
-        <div class="card"><div style="font-weight: 700;">📱 Android / iOS</div><div style="font-size:0.8rem; margin-top:8px;">Установи Hiddify → скопируй ссылку → импорт.</div></div>
-        <div class="card"><div style="font-weight: 700;">🧩 Telegram Proxy</div><div style="font-size:0.8rem;">Используй ссылку "Мобильный" → настрой в TG</div></div>
+    <!-- ————————— СТАТИСТИКА ————————— -->
+    <div class="card">
+        <div class="card-title">📊 Состояние системы</div>
+        <div class="stats-grid" id="statsBlock">
+            <div class="stat-item">📦 собрано: <strong class="num" id="totalStat">—</strong></div>
+            <div class="stat-item">🟢 живых (TCP): <strong class="num" id="aliveStat">—</strong></div>
+            <div class="stat-item">⏱️ обновлено: <strong class="num" id="timeStat">—</strong></div>
+        </div>
+        <div style="margin-top: 12px; font-size: 0.7rem; color: #444;">
+            Быстрая проверка (TCP). Точная проверка из РФ — в разработке.
+        </div>
     </div>
 
-    <div id="supportPage" class="page">
-        <div class="card"><div style="font-weight: 700;">❤️ Поддержать</div><div style="margin-top:12px;">USDT (TRC20): `TKvYtYUW5bW5bW5bW5bW5b`<br><br>⭐ GitHub: <a href="https://github.com/Stintik-123/vpn-configs-russia" target="_blank">поставь звезду</a></div></div>
+    <!-- ————————— ГАЙД (кратко) ————————— -->
+    <div class="card">
+        <div class="card-title">📘 Как подключиться за 10 секунд</div>
+        <div style="display: flex; flex-direction: column; gap: 6px; font-size: 0.85rem; color: #aaa;">
+            <div>1. Скачайте <a href="https://github.com/hiddify/hiddify-next/releases" target="_blank" style="color:#fff; text-decoration:underline;">Hiddify</a> (Windows / Mac / Android / iOS)</div>
+            <div>2. Скопируйте любую ссылку выше</div>
+            <div>3. В Hiddify: «Новый профиль» → «Импорт из URL» → вставьте → «Добавить»</div>
+            <div>4. Нажмите «Подключиться» и выберите сервер</div>
+        </div>
     </div>
 
-    <div id="secretPage" class="page">
-        <div class="card"><div style="font-weight: 700;">🤫 Секретный VLESS-лист</div><div class="url-box" id="secretUrl">https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/protocol-vless.txt</div><button id="copySecretBtn">📋 Скопировать</button></div>
-    </div>
-    <footer>⚡ обновление каждые 2 часа · Россия · свобода</footer>
-</div>
-
-<!-- МЕНЮ -->
-<div class="bottom-nav" id="bottomNav">
-    <button class="nav-item" data-page="homePage"><i>🏠</i><span>Главная</span></button>
-    <button class="nav-item" data-page="guidesPage"><i>📘</i><span>Гайды</span></button>
-    <button class="nav-item" data-page="supportPage"><i>❤️</i><span>Поддержать</span></button>
-    <button class="nav-item" data-page="secretPage"><i>🔒</i><span>Секрет</span></button>
-</div>
-
-<!-- ПРОВОДНИК — SNOO (маскот Reddit) -->
-<div class="guide-snoo" id="guideSnoo">
-    <img src="https://www.redditstatic.com/desktop2x/img/id-cards/snoo-home@2x.png" alt="snoo" onerror="this.src='https://placehold.co/42x42?text=Snoo'">
-    <div class="guide-text" id="snooText">⚡ Привет! Я помогу скопировать ссылку.</div>
+    <!-- ————————— ПОДВАЛ ————————— -->
+    <footer>
+        <span style="color:#555;">VPN Configs Russia</span> · <a href="https://github.com/Stintik-123/vpn-configs-russia" target="_blank">GitHub</a> · <a href="https://github.com/Stintik-123/vpn-configs-russia/issues" target="_blank">Сообщить о проблеме</a>
+        <br>
+        <span style="color:#333;">Конфиги из открытых источников. Используйте на свой риск.</span>
+    </footer>
 </div>
 
 <script>
     (function() {
-        // ---------- ЗАГРУЗКА ----------
-        const preloader = document.getElementById('preloader');
-        const loadingText = document.getElementById('loadingText');
-        const mainDiv = document.getElementById('mainContent');
-        setTimeout(() => loadingText.classList.add('show'), 200);
-        setTimeout(() => {
-            preloader.classList.add('hide');
-            mainDiv.classList.add('visible');
-        }, 2800);
+        'use strict';
 
-        // ---------- МЕНЮ + НАВИГАЦИЯ ----------
-        const pages = {
-            homePage: document.getElementById('homePage'),
-            guidesPage: document.getElementById('guidesPage'),
-            supportPage: document.getElementById('supportPage'),
-            secretPage: document.getElementById('secretPage')
+        // ——— данные для копирования (обновляются динамически) ———
+        const urls = {
+            main: document.getElementById('mainUrl').innerText.trim(),
+            mobile: document.getElementById('mobileUrl').innerText.trim(),
+            white: document.getElementById('whiteUrl').innerText.trim(),
+            vless: 'https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/protocol-vless.txt',
+            vmess: 'https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/protocol-vmess.txt',
+            trojan: 'https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/protocol-trojan.txt',
+            ss: 'https://raw.githubusercontent.com/Stintik-123/vpn-configs-russia/main/protocol-ss.txt'
         };
-        function showPage(pageId) {
-            Object.values(pages).forEach(p => p.classList.remove('active-page'));
-            pages[pageId].classList.add('active-page');
-            localStorage.setItem('vpn_last_page', pageId);
-            document.querySelectorAll('.nav-item').forEach(btn => {
-                if(btn.dataset.page === pageId) btn.classList.add('active');
-                else btn.classList.remove('active');
-            });
-        }
-        document.querySelectorAll('.nav-item').forEach(btn => {
-            btn.addEventListener('click', () => { if(btn.dataset.page) showPage(btn.dataset.page); });
-        });
-        const last = localStorage.getItem('vpn_last_page');
-        if(last && pages[last]) showPage(last); else showPage('homePage');
 
-        // ---------- КОПИРОВАНИЕ + РЕАКЦИЯ SNOO ----------
-        const snooText = document.getElementById('snooText');
-        function showSnooMessage(msg, isWink = false) {
-            snooText.innerText = msg;
-            if(isWink) {
-                const img = document.querySelector('#guideSnoo img');
-                img.style.transform = 'scale(0.9)';
-                setTimeout(() => img.style.transform = '', 200);
-            }
-            setTimeout(() => {
-                if(snooText.innerText === msg) snooText.innerText = '👀 Скопируй ссылку — я рядом';
-            }, 3000);
-        }
-        function copyToClipboard(text, btnElement, defaultText) {
+        // ——— универсальная функция копирования ———
+        function copyToClipboard(text, btnElement) {
+            if (!btnElement) return;
+            const originalText = btnElement.textContent;
             navigator.clipboard.writeText(text).then(() => {
-                const original = btnElement.innerHTML;
-                btnElement.innerHTML = '✅ Готово!';
-                setTimeout(() => btnElement.innerHTML = original, 1200);
-                showSnooMessage('✅ Отлично! Ссылка скопирована. Вставляй в Hiddify.', true);
+                btnElement.textContent = '✅ Скопировано';
+                btnElement.style.background = '#1A1A1A';
+                btnElement.style.color = '#fff';
+                setTimeout(() => {
+                    btnElement.textContent = originalText;
+                    btnElement.style.background = '';
+                    btnElement.style.color = '';
+                }, 1800);
             }).catch(() => {
-                btnElement.innerHTML = '❌ Ошибка';
-                setTimeout(() => btnElement.innerHTML = defaultText, 1200);
-                showSnooMessage('❌ Не вышло... попробуй ещё раз', false);
+                btnElement.textContent = '❌ Ошибка';
+                setTimeout(() => btnElement.textContent = originalText, 1500);
             });
         }
-        document.getElementById('copyMainBtn').addEventListener('click', () => copyToClipboard(document.getElementById('mainUrl').innerText, document.getElementById('copyMainBtn'), '📋 Скопировать ссылку'));
-        document.getElementById('copyMobileBtn').addEventListener('click', () => copyToClipboard(document.getElementById('mobileUrl').innerText, document.getElementById('copyMobileBtn'), '📱 Мобильный'));
-        document.getElementById('copyWhiteBtn').addEventListener('click', () => copyToClipboard(document.getElementById('whiteUrl').innerText, document.getElementById('copyWhiteBtn'), '📋 Белые списки'));
-        document.getElementById('copySecretBtn').addEventListener('click', () => copyToClipboard(document.getElementById('secretUrl').innerText, document.getElementById('copySecretBtn'), '📋 Скопировать'));
 
-        // ---------- НАПОМИНАНИЕ ОТ SNOO (бездействие) ----------
-        let idleTimer;
-        function resetIdle() {
-            clearTimeout(idleTimer);
-            idleTimer = setTimeout(() => {
-                snooText.innerText = '😴 Давай, копируй ссылку... Не бойся';
-                setTimeout(() => {
-                    if(snooText.innerText === '😴 Давай, копируй ссылку... Не бойся') snooText.innerText = '⚡ Я проводник, скопируй и пользуйся';
-                }, 4000);
-            }, 35000);
-        }
-        document.addEventListener('click', resetIdle);
-        document.addEventListener('mousemove', resetIdle);
-        resetIdle();
-
-        // клик по snoo
-        document.getElementById('guideSnoo').addEventListener('click', () => {
-            showSnooMessage('😉 Просто нажми на любую кнопку "Скопировать"', false);
+        // ——— вешаем обработчики ———
+        document.getElementById('copyMainBtn').addEventListener('click', function() {
+            copyToClipboard(urls.main, this);
+        });
+        document.getElementById('copyMobileBtn').addEventListener('click', function() {
+            copyToClipboard(urls.mobile, this);
+        });
+        document.getElementById('copyWhiteBtn').addEventListener('click', function() {
+            copyToClipboard(urls.white, this);
+        });
+        document.getElementById('copyVlessBtn').addEventListener('click', function() {
+            copyToClipboard(urls.vless, this);
+        });
+        document.getElementById('copyVmessBtn').addEventListener('click', function() {
+            copyToClipboard(urls.vmess, this);
+        });
+        document.getElementById('copyTrojanBtn').addEventListener('click', function() {
+            copyToClipboard(urls.trojan, this);
+        });
+        document.getElementById('copySsBtn').addEventListener('click', function() {
+            copyToClipboard(urls.ss, this);
         });
 
-        // ---------- СТАТИСТИКА ----------
-        async function loadStats() {
+        // ——— загрузка статистики из stats.json ———
+        async function fetchStats() {
             try {
                 const res = await fetch('stats.json');
-                if(!res.ok) throw new Error();
+                if (!res.ok) throw new Error('no stats');
                 const data = await res.json();
-                animateNumber('totalStat', 0, data.total || 198, 800);
-                animateNumber('aliveStat', 0, data.alive || 73, 800);
-                if(data.last_check) document.getElementById('timeStat').innerText = new Date(data.last_check).toLocaleTimeString().slice(0,5);
-            } catch(e) {}
-        }
-        function animateNumber(id, from, to, duration) {
-            const el = document.getElementById(id);
-            const start = performance.now();
-            function step(now) {
-                let p = Math.min(1, (now-start)/duration);
-                el.innerText = Math.floor(from + (to-from)*p);
-                if(p<1) requestAnimationFrame(step);
-                else el.innerText = to;
+                document.getElementById('totalStat').textContent = data.total ?? '—';
+                document.getElementById('aliveStat').textContent = data.alive ?? '—';
+                if (data.last_check) {
+                    const d = new Date(data.last_check);
+                    document.getElementById('timeStat').textContent = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                } else {
+                    document.getElementById('timeStat').textContent = '—';
+                }
+            } catch (_) {
+                // тихо падаем, оставляем прочерки
             }
-            requestAnimationFrame(step);
         }
-        loadStats();
+        fetchStats();
+
+        // ——— обновляем ссылки в протоколах, если они появятся ———
+        // (оставляем как есть, они уже указаны)
+
     })();
 </script>
 </body>
