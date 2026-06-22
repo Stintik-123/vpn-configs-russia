@@ -8,10 +8,13 @@ on:
     branches: [main]
     paths: ['configs/**', 'files/**', 'servers.txt']
 
+# 1. Даем права на запись в репозиторий для github-actions[bot]
+permissions:
+  contents: write
+
 jobs:
   pipeline:
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -38,18 +41,19 @@ jobs:
         run: python files/normalizer.py output/parsed.json output/ || echo "NORM_FAILED=true" >> $GITHUB_ENV
 
       - name: [3/6] Deduplicate configs
-        if: env.NORM_FAILED != 'true'
+        if: env.PARSE_FAILED != 'true' && env.NORM_FAILED != 'true'
         run: python files/dedup.py output/normalized.json output/ || echo "DEDUP_FAILED=true" >> $GITHUB_ENV
 
       - name: [4/6] Generate new configs
+        if: env.PARSE_FAILED != 'true' && env.NORM_FAILED != 'true' && env.DEDUP_FAILED != 'true'
         run: python files/generator.py servers.txt output/ || echo "GEN_FAILED=true" >> $GITHUB_ENV
 
       - name: [5/6] TCP/TLS test
-        if: env.DEDUP_FAILED != 'true'
+        if: env.PARSE_FAILED != 'true' && env.NORM_FAILED != 'true' && env.DEDUP_FAILED != 'true' && env.GEN_FAILED != 'true'
         run: python files/tcp_test.py output/deduped.json output/ || echo "TCP_FAILED=true" >> $GITHUB_ENV
 
       - name: [6/6] Live test + GeoIP + sorting
-        if: env.TCP_FAILED != 'true'
+        if: env.PARSE_FAILED != 'true' && env.NORM_FAILED != 'true' && env.DEDUP_FAILED != 'true' && env.GEN_FAILED != 'true' && env.TCP_FAILED != 'true'
         run: python files/tester.py output/tcp_passed.json output/ ${{ secrets.VPS_HOST }} ${{ secrets.VPS_USER }} ${{ secrets.VPS_KEY_PATH }} || echo "TEST_FAILED=true" >> $GITHUB_ENV
 
       - name: Upload artifacts
@@ -72,7 +76,7 @@ jobs:
           retention-days: 7
 
       - name: Commit results
-        if: success()
+        if: env.PARSE_FAILED != 'true' && env.NORM_FAILED != 'true' && env.DEDUP_FAILED != 'true' && env.GEN_FAILED != 'true' && env.TCP_FAILED != 'true' && env.TEST_FAILED != 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "actions@github.com"
@@ -83,5 +87,5 @@ jobs:
           git add -f output/by_country/
           git add -f output/report.md
           git add -f output/pipeline.log
-          git commit -m "Auto update: $(date -u +'%Y-%m-%d %H:%M UTC')" || true
-          git push || true
+          
+          git diff-index --quiet HEAD || (git commit -m "Auto update: $(date -u +'%Y-%m-%d %H:%M UTC')" && git push)
