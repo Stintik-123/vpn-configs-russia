@@ -6,7 +6,7 @@ on:
     - cron: '0 */6 * * *'
   push:
     branches: [main]
-    paths: ['configs/**', 'files/**', 'servers.txt']
+    paths: ['configs/*', 'files/**', 'servers.txt']
 
 jobs:
   pipeline:
