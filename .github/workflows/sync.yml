@@ -6,7 +6,7 @@ on:
     - cron: '0 */6 * * *'
   push:
     branches: [main]
-    paths: ['configs/*', 'files/**', 'servers.txt']
+    paths: ['configs/**', 'files/**', 'servers.txt']
 
 jobs:
   pipeline:
@@ -21,8 +21,9 @@ jobs:
         run: pip install -r files/requirements.txt
 
       - name: Load private subscriptions from secret
-        if: ${{ secrets.PRIVATE_SUBS }}
+        if: ${{ secrets.PRIVATE_SUBS != '' }}
         run: |
+          mkdir -p configs
           echo "${{ secrets.PRIVATE_SUBS }}" > configs/_private.txt
 
       - name: [1/6] Parse configs
