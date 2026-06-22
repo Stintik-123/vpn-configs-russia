@@ -1,45 +1,86 @@
-name: Sync Sources
+name: VPN Config Sync
 
 on:
-  schedule:
-    - cron: '0 6 * * *'
   workflow_dispatch:
-
-permissions:
-  contents: write
+  schedule:
+    - cron: '0 */6 * * *'
+  push:
+    branches: [main]
+    paths: ['configs/**', 'files/**', 'servers.txt']
 
 jobs:
-  process:
+  pipeline:
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - name: Install dependencies
+        run: pip install -r files/requirements.txt
+
+      - name: Load private subscriptions from secret
+        if: ${{ secrets.PRIVATE_SUBS }}
+        run: |
+          echo "${{ secrets.PRIVATE_SUBS }}" > configs/_private.txt
+
+      - name: [1/6] Parse configs
+        id: parse
+        run: python files/parser.py || echo "PARSE_FAILED=true" >> $GITHUB_ENV
+
+      - name: Remove private subscriptions
+        run: rm -f configs/_private.txt
+
+      - name: [2/6] Normalize configs
+        if: env.PARSE_FAILED != 'true'
+        run: python files/normalizer.py output/parsed.json output/ || echo "NORM_FAILED=true" >> $GITHUB_ENV
+
+      - name: [3/6] Deduplicate configs
+        if: env.NORM_FAILED != 'true'
+        run: python files/dedup.py output/normalized.json output/ || echo "DEDUP_FAILED=true" >> $GITHUB_ENV
+
+      - name: [4/6] Generate new configs
+        run: python files/generator.py servers.txt output/ || echo "GEN_FAILED=true" >> $GITHUB_ENV
+
+      - name: [5/6] TCP/TLS test
+        if: env.DEDUP_FAILED != 'true'
+        run: python files/tcp_test.py output/deduped.json output/ || echo "TCP_FAILED=true" >> $GITHUB_ENV
+
+      - name: [6/6] Live test + GeoIP + sorting
+        if: env.TCP_FAILED != 'true'
+        run: python files/tester.py output/tcp_passed.json output/ ${{ secrets.VPS_HOST }} ${{ secrets.VPS_USER }} ${{ secrets.VPS_KEY_PATH }} || echo "TEST_FAILED=true" >> $GITHUB_ENV
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         with:
-          python-version: '3.11'
+          name: vpn-configs-${{ github.run_id }}
+          path: |
+            output/alive.txt
+            output/garbage.txt
+            output/tg_proxy.txt
+            output/by_protocol/
+            output/by_country/
+            output/report.md
+            output/pipeline.log
+            black.txt
+            black_mobile.txt
+            white.txt
+            white_sni.txt
+            white_cidr.txt
+          retention-days: 7
 
-      - name: Install deps
+      - name: Commit results
+        if: success()
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install aiohttp aiogram
-
-      - name: Collect
-        env:
-          SOURCES_LIST: ${{ secrets.SOURCES_LIST }}
-        run: python tools/collector.py
-
-      - name: Clean
-        run: python tools/clean.py --input raw.txt --output cleaned.txt
-
-      - name: Test
-        run: python tools/test.py
-
-      - name: Commit alive
-        run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add alive.txt data/alive.txt data/report.json || true
-          git diff --staged --quiet || (
-            git commit -m "Update candidates $(date -u +%Y-%m-%dT%H:%M:%SZ)" && git push
-          )
+          git config user.name "github-actions[bot]"
+          git config user.email "actions@github.com"
+          git add black.txt black_mobile.txt white.txt white_sni.txt white_cidr.txt
+          git add -f output/alive.txt output/garbage.txt
+          git add -f output/tg_proxy.txt
+          git add -f output/by_protocol/
+          git add -f output/by_country/
+          git add -f output/report.md
+          git add -f output/pipeline.log
+          git commit -m "Auto update: $(date -u +'%Y-%m-%d %H:%M UTC')" || true
+          git push || true
