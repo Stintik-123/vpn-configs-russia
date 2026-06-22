@@ -1,9 +1,10 @@
+#!/usr/bin/env python3
 import json
 import sys
 import time
+import ipaddress
 from datetime import datetime, timezone
 from pathlib import Path
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from logger import Logger
 from geoip import get_country
 
@@ -122,12 +123,6 @@ def run(input_file: str, output_dir: str):
     with open(in_path, 'r', encoding='utf-8') as f:
         configs = json.load(f)
 
-    black_ips = load_or_empty(root_dir / "black.txt")
-    black_mobile = load_or_empty(root_dir / "black_mobile.txt")
-    white_domains = load_or_empty(root_dir / "white.txt")
-    white_sni = load_or_empty(root_dir / "white_sni.txt")
-    white_cidr = load_or_empty(root_dir / "white_cidr.txt")
-
     alive, dead = [], []
     country_data = {}
 
@@ -159,14 +154,46 @@ def run(input_file: str, output_dir: str):
     logger.ok("tester", f"Живых: {len(alive)} | Мёртвых: {len(dead)}")
     ts = datetime.now(timezone.utc)
 
-    for fname, data in [
-        ("black.txt", black_ips), ("black_mobile.txt", black_mobile),
-        ("white.txt", white_domains), ("white_sni.txt", white_sni), ("white_cidr.txt", white_cidr)
-    ]:
-        with open(root_dir / fname, 'w', encoding='utf-8') as f:
-            f.write(f"# {fname} - обновлено {ts.isoformat()}\n")
-            for item in data:
-                f.write(f"{item}\n")
+    def sort_by_latency(configs_list, limit=None):
+        sorted_list = sorted(configs_list, key=lambda x: x.get("latency_ms") or 9999)
+        if limit:
+            return sorted_list[:limit]
+        return sorted_list
+
+    black = sort_by_latency(alive, 50)
+
+    mobile_ports = {80, 443, 8080, 8443}
+    mobile_candidates = [c for c in alive if c.get("port") in mobile_ports and c.get("type") != "hysteria"]
+    black_mobile = sort_by_latency(mobile_candidates, 20)
+
+    white_candidates = [c for c in alive if c.get("params", {}).get("security") == "reality"
+                        or c.get("params", {}).get("flow") == "xtls-rvision"
+                        or c.get("obfs")]
+    white = sort_by_latency(white_candidates, 20)
+
+    white_sni_candidates = [c for c in alive if c.get("sni") and c.get("sni") != c.get("host")]
+    white_sni = sort_by_latency(white_sni_candidates, 20)
+
+    def is_ip(host):
+        try:
+            ipaddress.ip_address(host)
+            return True
+        except:
+            return False
+    white_cidr_candidates = [c for c in alive if is_ip(c.get("host", ""))]
+    white_cidr = sort_by_latency(white_cidr_candidates, 20)
+
+    def write_configs(filename, configs):
+        with open(root_dir / filename, 'w', encoding='utf-8') as f:
+            f.write(f"# {filename} - {ts.isoformat()} - {len(configs)} шт.\n")
+            for cfg in configs:
+                f.write(to_uri(cfg) + "\n")
+
+    write_configs("black.txt", black)
+    write_configs("black_mobile.txt", black_mobile)
+    write_configs("white.txt", white)
+    write_configs("white_sni.txt", white_sni)
+    write_configs("white_cidr.txt", white_cidr)
 
     with open(out_dir / "alive.txt", 'w', encoding='utf-8') as f:
         f.write(f"# Alive VPN Configs - {ts.isoformat()}\n# Всего: {len(alive)}\n\n")
@@ -217,34 +244,20 @@ def run(input_file: str, output_dir: str):
 **Дата:** {ts.strftime('%Y-%m-%d %H:%M UTC')}
 **Всего:** {len(configs)} | **Живых:** {len(alive)} ({len(alive)/max(len(configs),1)*100:.1f}%) | **Мёртвых:** {len(dead)}
 
-## По странам
-| Страна | Живых | Мёртвых |
-|--------|-------|---------|
-"""
-    for country, data in sorted(country_data.items()):
-        report += f"| {country} | {len(data['alive'])} | {len(data['dead'])} |\n"
-
-    report += f"""
-## Файлы
-| Файл | Записей |
-|------|---------|
-| black.txt | {len(black_ips)} |
-| black_mobile.txt | {len(black_mobile)} |
-| white.txt | {len(white_domains)} |
-| white_sni.txt | {len(white_sni)} |
-| white_cidr.txt | {len(white_cidr)} |
-| output/alive.txt | {len(alive)} |
-| output/tg_proxy.txt | {len(alive)} |
-| output/by_protocol/vless.txt | {len(by_proto['vless'])} |
-| output/by_protocol/ss.txt | {len(by_proto['ss'])} |
-| output/by_protocol/trojan.txt | {len(by_proto['trojan'])} |
-| output/by_protocol/hysteria.txt | {len(by_proto['hysteria'])} |
-| output/by_country/ | {len(country_data)} стран |
+## Категории
+| Категория | Файл | Конфигов |
+|-----------|------|----------|
+| Универсальные | black.txt | {len(black)} |
+| Мобильные | black_mobile.txt | {len(black_mobile)} |
+| Обход РКН (обфускация) | white.txt | {len(white)} |
+| SNI-обход | white_sni.txt | {len(white_sni)} |
+| CIDR-обход | white_cidr.txt | {len(white_cidr)} |
+| Telegram прокси | output/tg_proxy.txt | {len(alive)} |
 """
     with open(out_dir / "report.md", 'w', encoding='utf-8') as f:
         f.write(report)
 
-    logger.done("tester", "Готово!")
+    logger.done("tester", "Готово! Категории сформированы.")
     logger.save()
 
 if __name__ == "__main__":
